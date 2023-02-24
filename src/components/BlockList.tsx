@@ -1,4 +1,5 @@
 import { useMailContext } from '../context/mailContext';
+import { BlockListItem } from './BlockListItem';
 import { EmptyState } from './EmptyState';
 
 export const BlockList: React.FC = () => {
@@ -9,7 +10,7 @@ export const BlockList: React.FC = () => {
   return (
     <ul>
       {root.children.map((b) => (
-        <li key={b.id}>test</li>
+        <BlockListItem block={b} />
       ))}
     </ul>
   );

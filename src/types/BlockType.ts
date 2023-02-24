@@ -1,1 +1,1 @@
-export type BlockType = 'root' | 'row' | 'headline' | 'text' | 'cta' | 'image';
+export type BlockType = 'root' | 'row' | 'headline' | 'paragraph' | 'cta' | 'image';
