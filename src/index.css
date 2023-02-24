@@ -4,6 +4,6 @@
 
 @layer components {
   .uppercase-list-title {
-    @apply text-xs font-semibold uppercase tracking-wider;
+    @apply text-xs font-semibold uppercase tracking-wider text-neutral-400;
   }
 }

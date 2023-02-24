@@ -8,38 +8,30 @@ interface MailContextValue {
   theme: Theme;
   selectedBlock: null;
   root: Block;
-  addBlock: (node: Block, parent: Block) => void;
-  createBlock: (data: Omit<Block, 'id'>) => void;
+  addBlock: (node: Block, parentId: string) => void;
+  createBlock: (data: Omit<Block, 'id'>) => Block;
   removeBlock: (id: string) => void;
   reorderBlocks: (nodeId: string, orderedChildren: Block[]) => void;
 }
 
-const getInitialContextValue = (): MailContextValue => ({
-  theme: {
-    fontWeight: 400,
-    fontFamily: 'sans-serif',
-    fontSize: 16,
-    colors: [{ name: 'text-base', hex: '#000' }],
-  },
-  selectedBlock: null,
-  root: { id: '', type: 'root' },
-  addBlock: () => {},
-  createBlock: () => {},
-  removeBlock: () => {},
-  reorderBlocks: () => {},
-});
+const MailContext = React.createContext({} as MailContextValue);
 
-const MailContext = React.createContext(getInitialContextValue());
+const initialTheme: Theme = {
+  fontWeight: 400,
+  fontFamily: 'sans-serif',
+  fontSize: 16,
+  colors: [{ name: 'text-base', hex: '#000' }],
+};
 
 export const MailContextProvider: React.FC<WithChildren> = ({ children }) => {
   const tree = useTree<Block>();
-  const [theme, setTheme] = useState(getInitialContextValue().theme);
+  const [theme, setTheme] = useState(initialTheme);
 
   const contextValue = {
     theme,
     setTheme,
     selectedBlock: null,
-    root: tree.state.root,
+    root: tree.root,
     addBlock: tree.addNode,
     createBlock: tree.createNode,
     removeBlock: tree.removeNode,

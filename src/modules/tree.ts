@@ -22,7 +22,7 @@ export class Tree<T extends TNode> {
   }
 
   createNode(data: Omit<T, 'id'>) {
-    const id = getNextId('node');
+    const id = getNextId(this.nodeName);
     return { ...data, id } as T;
   }
 
@@ -61,6 +61,14 @@ export class Tree<T extends TNode> {
     if (!entry?.node?.children) return;
     const orderedIds = orderedChildren.map((n) => n.id);
     entry.node.children.sort((a, b) => orderedIds.indexOf(a.id) - orderedIds.indexOf(b.id));
+  }
+
+  /**
+   * Get a copy of root. Used to trigger react update.
+   * @returns copy of {@link this.root}.
+   */
+  getRoot() {
+    return { ...this.root };
   }
 
   _getEntry(id: string) {
