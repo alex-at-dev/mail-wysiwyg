@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .uppercase-list-title {
+    @apply text-xs font-semibold uppercase tracking-wider;
+  }
+}
