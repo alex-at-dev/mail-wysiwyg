@@ -18,7 +18,11 @@ export const BlockIcon: React.FC<BlockIconProps> = ({ type, ...props }) => {
   return (
     <i
       {...props}
-      className={cx(props.className, typeToIcon[type], 'fa text-sm text-neutral-700')}
+      className={cx(
+        props.className,
+        typeToIcon[type],
+        'fa w-4 text-center text-sm text-neutral-700'
+      )}
     />
   );
 };

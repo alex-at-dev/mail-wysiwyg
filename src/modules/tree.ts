@@ -1,5 +1,6 @@
 import { getNextId } from './util';
 
+// TODO export types?
 export interface TNode {
   id: string;
   children?: TNode[];
@@ -21,6 +22,28 @@ export class Tree<T extends TNode> {
     this.byId = { [this.root.id]: { node: this.root, parent: null } };
   }
 
+  /**
+   * Find the closest parent of {@link initialId} that matches {@link predicate}.
+   * @param predicate function to check if given parent is the one searched for.
+   * @param initialId node.id to start from.
+   * @returns closest parent of {@link initialId} that matches {@link predicate} or null.
+   */
+  getParentThat(predicate: (node: T) => boolean, initialId: string): T | null {
+    let id: string | null = initialId;
+    while (id) {
+      const entry: TreeEntry<T> = this.byId[id];
+      if (!entry || !entry.node) return null;
+      if (predicate(entry.node)) return entry.node;
+      id = entry.parent;
+    }
+    return null;
+  }
+
+  /**
+   * Create a new node with a corresponding id.
+   * @param data node data.
+   * @returns node data plus id ready to be passed to {@link addNode}.
+   */
   createNode(data: Omit<T, 'id'>) {
     const id = getNextId(this.nodeName);
     return { ...data, id } as T;
@@ -71,7 +94,7 @@ export class Tree<T extends TNode> {
     return { ...this.root };
   }
 
-  _getEntry(id: string) {
+  private _getEntry(id: string) {
     const _entry = this.byId[id];
     if (!_entry || !_entry.node) return null;
     return _entry;

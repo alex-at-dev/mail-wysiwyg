@@ -1,24 +1,38 @@
+import { MouseEvent } from 'react';
 import { typeToIcon } from '../components/BlockIcon';
 import { BlockList } from '../components/BlockList';
 import { EmptyState } from '../components/EmptyState';
 import { SettingsButton } from '../components/SettingsButton';
-import { useMailContext } from '../context/mailContext';
+import { useEditorContext } from '../context/editorContext';
 import { BlockType } from '../types/BlockType';
 
 export const MailEditPage: React.FC = () => {
-  const { root, createBlock, addBlock } = useMailContext();
+  const { root, selectedBlockId, setSelectedBlockId, createBlock, addBlock, getParentThat } =
+    useEditorContext();
 
-  const handleAddBlock = (type: BlockType) => {
+  const handleBlockListClick = (ev: MouseEvent) => {
+    if (ev.target !== ev.currentTarget) return;
+    setSelectedBlockId(null);
+  };
+
+  const handleAddBlockClick = (type: BlockType) => {
     const block = createBlock({ type });
-    addBlock(block, root.id);
+
+    // use selected block as parent if it's a row
+    let parentId: string | null = root.id;
+    if (selectedBlockId) {
+      const parent = getParentThat((b) => b.type === 'row', selectedBlockId);
+      if (parent) parentId = parent.id;
+    }
+    addBlock(block, parentId);
   };
 
   return (
     <div className="grid min-h-[100vh] grid-cols-[18rem,1fr,18rem] justify-between">
       {/* blocks */}
-      <div className="border-r">
+      <div className="border-r" onClick={handleBlockListClick}>
         <h2 className="uppercase-list-title mx-4 mb-3 mt-4">Blocks</h2>
-        <BlockList />
+        {root.children && <BlockList blocks={root.children} />}
       </div>
 
       {/* main page */}
@@ -30,7 +44,7 @@ export const MailEditPage: React.FC = () => {
               the right.
             </EmptyState>
           ) : (
-            <pre>{JSON.stringify(root)}</pre>
+            <pre>{JSON.stringify(root, null, 2)}</pre>
           )}
         </div>
       </div>
@@ -43,31 +57,31 @@ export const MailEditPage: React.FC = () => {
             icon={typeToIcon['row']}
             label="Row"
             description="Your basic layout building block"
-            onClick={() => handleAddBlock('row')}
+            onClick={() => handleAddBlockClick('row')}
           />
           <SettingsButton
             icon={typeToIcon['headline']}
             label="Headline"
             description="h1-h6 headline"
-            onClick={() => handleAddBlock('headline')}
+            onClick={() => handleAddBlockClick('headline')}
           />
           <SettingsButton
             icon={typeToIcon['paragraph']}
             label="Text"
             description="Add some basic text"
-            onClick={() => handleAddBlock('paragraph')}
+            onClick={() => handleAddBlockClick('paragraph')}
           />
           <SettingsButton
             icon={typeToIcon['cta']}
             label="CTA Button"
             description="Call to action button"
-            onClick={() => handleAddBlock('cta')}
+            onClick={() => handleAddBlockClick('cta')}
           />
           <SettingsButton
             icon={typeToIcon['image']}
             label="Image"
             description="Enrich your mails with images"
-            onClick={() => handleAddBlock('image')}
+            onClick={() => handleAddBlockClick('image')}
           />
         </div>
 

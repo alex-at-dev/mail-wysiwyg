@@ -1,10 +1,10 @@
-import { MailContextProvider } from './context/mailContext';
+import { EditorContextProvider } from './context/editorContext';
 import { MailEditPage } from './pages/MailEditPage';
 
 export const App = () => {
   return (
-    <MailContextProvider>
+    <EditorContextProvider>
       <MailEditPage />
-    </MailContextProvider>
+    </EditorContextProvider>
   );
 };

@@ -1,11 +1,10 @@
-import { HTMLProps } from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 import { cx } from '../modules/util';
 
-interface SettingsButtonProps extends HTMLProps<HTMLButtonElement> {
+interface SettingsButtonProps extends ComponentPropsWithoutRef<'button'> {
   label: string;
   description?: string;
   icon?: string;
-  type?: any;
 }
 
 export const SettingsButton: React.FC<SettingsButtonProps> = ({
@@ -20,7 +19,7 @@ export const SettingsButton: React.FC<SettingsButtonProps> = ({
       type="button"
       {...props}
     >
-      {icon && <i className={cx('fa mt-[.3rem] text-sm text-neutral-700', icon)} />}
+      {icon && <i className={cx('fa mt-[.3rem] w-4 text-center text-sm text-neutral-700', icon)} />}
       <div>
         <div>{label}</div>
         {description && <div className="text-neutral-500">{description}</div>}

@@ -16,6 +16,7 @@ export function useTree<T extends TNode>() {
 
   return {
     root,
+    getParentThat: tree.current.getParentThat.bind(tree.current),
     createNode: _proxyAction(tree.current.createNode),
     addNode: _proxyAction(tree.current.addNode),
     removeNode: _proxyAction(tree.current.removeNode),

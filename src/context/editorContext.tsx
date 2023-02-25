@@ -4,17 +4,22 @@ import { Block } from '../types/Block';
 import { Theme } from '../types/Theme';
 import { WithChildren } from '../types/WithChildren';
 
-interface MailContextValue {
+interface EditorContextValue {
   theme: Theme;
-  selectedBlock: null;
+  setTheme: (theme: Theme) => void;
+
+  selectedBlockId: string | null;
+  setSelectedBlockId: (id: string | null) => void;
+
   root: Block;
+  getParentThat: (predicate: (node: Block) => boolean, initialId: string) => Block | null;
   addBlock: (node: Block, parentId: string) => void;
   createBlock: (data: Omit<Block, 'id'>) => Block;
   removeBlock: (id: string) => void;
   reorderBlocks: (nodeId: string, orderedChildren: Block[]) => void;
 }
 
-const MailContext = React.createContext({} as MailContextValue);
+const EditorContext = React.createContext({} as EditorContextValue);
 
 const initialTheme: Theme = {
   fontWeight: 400,
@@ -23,22 +28,27 @@ const initialTheme: Theme = {
   colors: [{ name: 'text-base', hex: '#000' }],
 };
 
-export const MailContextProvider: React.FC<WithChildren> = ({ children }) => {
+export const EditorContextProvider: React.FC<WithChildren> = ({ children }) => {
   const tree = useTree<Block>();
   const [theme, setTheme] = useState(initialTheme);
+  const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
 
   const contextValue = {
     theme,
     setTheme,
-    selectedBlock: null,
+
+    selectedBlockId,
+    setSelectedBlockId,
+
     root: tree.root,
+    getParentThat: tree.getParentThat,
     addBlock: tree.addNode,
     createBlock: tree.createNode,
     removeBlock: tree.removeNode,
     reorderBlocks: tree.reorderChildren,
   };
 
-  return <MailContext.Provider value={contextValue}>{children}</MailContext.Provider>;
+  return <EditorContext.Provider value={contextValue}>{children}</EditorContext.Provider>;
 };
 
-export const useMailContext = () => React.useContext(MailContext);
+export const useEditorContext = () => React.useContext(EditorContext);
