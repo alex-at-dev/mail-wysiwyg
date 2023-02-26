@@ -7,3 +7,27 @@
     @apply text-xs font-semibold uppercase tracking-wider text-neutral-400;
   }
 }
+
+// reorder list
+@layer components {
+  .rl--drop-top,
+  .rl--drop-bottom {
+    @apply relative;
+  }
+  .rl--drop-top:before,
+  .rl--drop-bottom:after {
+    content: '';
+    @apply absolute h-[2px] w-full bg-neutral-700;
+  }
+
+  .rl--drop-top:before {
+    @apply top-0;
+  }
+  .rl--drop-bottom:after {
+    @apply bottom-0;
+  }
+
+  .rl--drop-into {
+    @apply outline outline-2 outline-neutral-700;
+  }
+}

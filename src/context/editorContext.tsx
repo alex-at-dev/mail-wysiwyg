@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTree } from '../hooks/useTree';
 import { TreeEntry } from '../modules/tree';
 import { Block } from '../types/Block';
+import { ReorderType } from '../types/ReorderType';
 import { Theme } from '../types/Theme';
 import { WithChildren } from '../types/WithChildren';
 
@@ -19,7 +20,7 @@ interface EditorContextValue {
   createBlock: (data: Omit<Block, 'id'>) => Block;
   updateBlock: (updatedBlock: Block) => void;
   removeBlock: (id: string) => void;
-  reorderBlocks: (nodeId: string, orderedChildren: Block[]) => void;
+  reorderBlocks: (srcId: string, targetId: string, type: ReorderType) => void;
 }
 
 const EditorContext = React.createContext({} as EditorContextValue);
