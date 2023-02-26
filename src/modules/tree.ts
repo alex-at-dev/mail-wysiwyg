@@ -64,19 +64,28 @@ export class Tree<T extends TNode> {
     this.byId[node.id] = { node, parent: pEntry.id };
   }
 
-  removeNode(id: string) {
-    // get real node
+  /**
+   * Removes node with given {@link id}.
+   * @param id node.id to remove
+   * @param parentRemoved If true, doesn't remove node from its parents children array
+   */
+  removeNode(id: string, parentRemoved: boolean = false) {
     const entry = this._getEntry(id);
-    // remove entry in byId
     if (!entry || !entry.node) return;
+    // remove entry in byId
     delete this.byId[entry.node.id];
     // remove child entry in parent node
-    if (!entry.parent) return;
-    const parent = this._getEntry(entry.parent);
-    if (!parent?.node?.children) return;
-    const i = parent.node.children.findIndex((i) => i.id === id);
-    if (i < 0) return;
-    parent.node.children.splice(i, 1);
+    if (!parentRemoved && entry.parent) {
+      const parent = this._getEntry(entry.parent);
+      if (!parent?.node?.children) return;
+      const i = parent.node.children.findIndex((i) => i.id === id);
+      if (i < 0) return;
+      parent.node.children.splice(i, 1);
+    }
+    // remove child nodes
+    if (entry.node.children?.length) {
+      entry.node.children.forEach((n) => this.removeNode(n.id, true));
+    }
   }
 
   reorderChildren(nodeId: string, orderedChildren: T[]) {

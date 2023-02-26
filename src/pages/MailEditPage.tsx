@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import { BlockList } from '../components/BlockList';
 import { BlockSettingsPanel } from '../components/BlockSettingsPanel';
-import { EditActionsPanel } from '../components/EditActionsPanel';
+import { GeneralSettingsPanel } from '../components/GeneralSettingsPanel';
 import { EmptyState } from '../components/EmptyState';
 import { useEditorContext } from '../context/editorContext';
 import { cx } from '../modules/util';
@@ -38,7 +38,7 @@ export const MailEditPage: React.FC = () => {
 
       {/* settings & actions */}
       <div className="border-l py-4">
-        <EditActionsPanel className={cx({ hidden: !!selectedBlockId })} />
+        <GeneralSettingsPanel className={cx({ hidden: !!selectedBlockId })} />
         <BlockSettingsPanel className={cx({ hidden: !selectedBlockId })} />
       </div>
     </div>

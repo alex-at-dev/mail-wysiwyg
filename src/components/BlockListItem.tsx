@@ -63,6 +63,7 @@ export const BlockListItem: React.FC<BlockListItemProps> = ({ block, level, ...p
         <BlockIcon type={block.type} />
         {editingLabel ? (
           <input
+            className="block w-full"
             defaultValue={label}
             onBlur={handleLabelEditBlur}
             ref={labelEditRef}
