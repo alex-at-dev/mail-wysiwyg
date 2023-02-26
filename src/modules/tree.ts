@@ -1,6 +1,8 @@
 import { ReorderType } from '../types/ReorderType';
 import { getNextId } from './util';
 
+// TODO Unit-tests
+
 /**
  * magic id to reorder an item to the end of the tree (end of list).
  * @example reorderChildren('node-1337', 'eol', 'whatever') -> puts 'node-1337' as last child of root.
