@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTree } from '../hooks/useTree';
+import { TreeEntry } from '../modules/tree';
 import { Block } from '../types/Block';
 import { Theme } from '../types/Theme';
 import { WithChildren } from '../types/WithChildren';
@@ -12,9 +13,11 @@ interface EditorContextValue {
   setSelectedBlockId: (id: string | null) => void;
 
   root: Block;
+  byId: (id: string) => TreeEntry<Block>;
   getParentThat: (predicate: (node: Block) => boolean, initialId: string) => Block | null;
   addBlock: (node: Block, parentId: string) => void;
   createBlock: (data: Omit<Block, 'id'>) => Block;
+  updateBlock: (updatedBlock: Block) => void;
   removeBlock: (id: string) => void;
   reorderBlocks: (nodeId: string, orderedChildren: Block[]) => void;
 }
@@ -41,10 +44,12 @@ export const EditorContextProvider: React.FC<WithChildren> = ({ children }) => {
     setSelectedBlockId,
 
     root: tree.root,
+    byId: tree.byId,
     getParentThat: tree.getParentThat,
-    addBlock: tree.addNode,
     createBlock: tree.createNode,
+    addBlock: tree.addNode,
     removeBlock: tree.removeNode,
+    updateBlock: tree.updateNode,
     reorderBlocks: tree.reorderChildren,
   };
 

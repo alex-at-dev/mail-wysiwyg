@@ -14,12 +14,20 @@ export function useTree<T extends TNode>() {
     };
   };
 
+  const updateNode = (updatedNode: T) => {
+    const entry = tree.current.byId[updatedNode.id];
+    if (!entry || !entry.node) return;
+    Object.assign(entry.node, updatedNode);
+  };
+
   return {
     root,
+    byId: (id: string) => tree.current.byId[id],
     getParentThat: tree.current.getParentThat.bind(tree.current),
     createNode: _proxyAction(tree.current.createNode),
     addNode: _proxyAction(tree.current.addNode),
     removeNode: _proxyAction(tree.current.removeNode),
+    updateNode: _proxyAction(updateNode),
     reorderChildren: _proxyAction(tree.current.reorderChildren),
   };
 }

@@ -6,7 +6,7 @@ export interface TNode {
   children?: TNode[];
 }
 
-interface TreeEntry<T extends TNode> {
+export interface TreeEntry<T extends TNode> {
   node: T;
   parent: string | null;
 }
