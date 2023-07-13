@@ -3,7 +3,7 @@ import { BlockList } from '../components/BlockList';
 import { BlockSettingsPanel } from '../components/BlockSettingsPanel';
 import { EmptyState } from '../components/EmptyState';
 import { GeneralSettingsPanel } from '../components/GeneralSettingsPanel';
-import { useEditorContext } from '../context/editorContext';
+import { useEditorContext } from '../context/useEditorContext';
 import { useReorderList } from '../hooks/useReorderList';
 import { EOL } from '../modules/tree';
 import { cx } from '../modules/util';

@@ -1,5 +1,5 @@
 import { FocusEvent } from 'react';
-import { useEditorContext } from '../../context/editorContext';
+import { useEditorContext } from '../../context/useEditorContext';
 import { Textbox } from '../Textbox';
 
 export const BlockEditorHeadline: React.FC = () => {

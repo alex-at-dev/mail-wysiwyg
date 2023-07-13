@@ -1,7 +1,7 @@
 import { HTMLProps } from 'react';
-import { useEditorContext } from '../context/editorContext';
+import { useEditorContext } from '../context/useEditorContext';
 import { BlockType } from '../types/BlockType';
-import { typeToIcon } from './BlockIcon';
+import { typeToIcon } from '../util/typeToIcon';
 import { SettingsButton } from './SettingsButton';
 
 export const AddBlockList: React.FC<HTMLProps<HTMLDivElement>> = (props) => {

@@ -1,5 +1,5 @@
 import { HTMLProps } from 'react';
-import { useEditorContext } from '../context/editorContext';
+import { useEditorContext } from '../context/useEditorContext';
 import { cx } from '../modules/util';
 import { BlockEditorCta } from './block-editors/BlockEditorCta';
 import { BlockEditorHeadline } from './block-editors/BlockEditorHeadline';

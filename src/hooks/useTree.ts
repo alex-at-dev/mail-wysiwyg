@@ -1,5 +1,5 @@
 import { MutableRefObject, useRef, useState } from 'react';
-import { TNode, Tree, TreeEntry } from '../modules/tree';
+import { TNode, Tree } from '../modules/tree';
 
 export function useTree<T extends TNode>() {
   const tree = useRef<Tree<T>>(null) as MutableRefObject<Tree<T>>;

@@ -1,4 +1,4 @@
-import React, { Context, useState } from 'react';
+import React, { useState } from 'react';
 import { useTree } from '../hooks/useTree';
 import { TreeEntry } from '../modules/tree';
 import { Block } from '../types/Block';
@@ -6,7 +6,7 @@ import { ReorderType } from '../types/ReorderType';
 import { Theme } from '../types/Theme';
 import { WithChildren } from '../types/WithChildren';
 
-interface EditorContextValue<T> {
+export interface EditorContextValue<T> {
   theme: Theme;
   setTheme: (theme: Theme) => void;
 
@@ -23,7 +23,7 @@ interface EditorContextValue<T> {
   reorderBlocks: (srcId: string, targetId: string, type: ReorderType) => void;
 }
 
-const EditorContext = React.createContext({} as EditorContextValue<unknown>);
+export const EditorContext = React.createContext({} as EditorContextValue<unknown>);
 
 const initialTheme: Theme = {
   fontWeight: 400,
@@ -60,8 +60,3 @@ export const EditorContextProvider = <T extends unknown>({ children }: WithChild
     </EditorContext.Provider>
   );
 };
-
-export const useEditorContext = <T extends unknown>() =>
-  React.useContext<EditorContextValue<T>>(
-    EditorContext as unknown as Context<EditorContextValue<T>>
-  );

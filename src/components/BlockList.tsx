@@ -1,4 +1,4 @@
-import { useEditorContext } from '../context/editorContext';
+import { useEditorContext } from '../context/useEditorContext';
 import { useReorderList } from '../hooks/useReorderList';
 import { Block } from '../types/Block';
 import { BlockListItem } from './BlockListItem';
