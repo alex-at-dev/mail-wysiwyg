@@ -81,7 +81,8 @@ export class Tree<T extends TNode> {
    * @param parentRemoved If true, doesn't remove node from its parents children array.
    * @param transient If true doesn't remove children. Used for reordering.
    */
-  removeNode(id: string, parentRemoved = false, transient = false) {
+  removeNode(id: string | null, parentRemoved = false, transient = false) {
+    if (!id) return;
     const entry = this.getEntry(id);
     if (!entry || !entry.node) return;
     // remove entry in byId

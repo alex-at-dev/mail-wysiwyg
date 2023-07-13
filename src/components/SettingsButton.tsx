@@ -15,7 +15,7 @@ export const SettingsButton: React.FC<SettingsButtonProps> = ({
 }) => {
   return (
     <button
-      className="flex w-full gap-3 px-4 py-2 text-left hover:bg-neutral-50"
+      className="flex w-full gap-3 px-4 py-2 text-left enabled:hover:bg-neutral-50 enabled:active:bg-neutral-100 disabled:cursor-not-allowed disabled:opacity-50"
       type="button"
       {...props}
     >

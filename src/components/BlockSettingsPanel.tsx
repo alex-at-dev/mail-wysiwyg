@@ -1,19 +1,16 @@
-import { FocusEvent, HTMLProps } from 'react';
+import { HTMLProps } from 'react';
 import { useEditorContext } from '../context/editorContext';
 import { cx } from '../modules/util';
-import { AddBlockList } from './AddBlockList';
-import { Textarea } from './Textarea';
-import { Textbox } from './Textbox';
+import { BlockEditorCta } from './block-editors/BlockEditorCta';
+import { BlockEditorHeadline } from './block-editors/BlockEditorHeadline';
+import { BlockEditorImage } from './block-editors/BlockEditorImage';
+import { BlockEditorParagraph } from './block-editors/BlockEditorParagraph';
+import { BlockEditorRow } from './block-editors/BlockEditorRow';
 
 export const BlockSettingsPanel: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
-  const { selectedBlockId, byId, updateBlock, removeBlock } = useEditorContext();
-  if (!selectedBlockId) return null;
+  const { selectedBlockId, byId, removeBlock } = useEditorContext();
   const selectedBlock = byId(selectedBlockId)?.node;
   if (!selectedBlock) return null;
-
-  const handleContentBlur = (ev: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    updateBlock({ ...selectedBlock, content: ev.target.value });
-  };
 
   return (
     <div {...props} className={cx(props.className, 'px-4')}>
@@ -27,22 +24,12 @@ export const BlockSettingsPanel: React.FC<HTMLProps<HTMLDivElement>> = (props) =
         delete node
       </button>
 
-      {/* row */}
-      {selectedBlock.type === 'row' && <AddBlockList className="-mx-4 -mt-2" />}
-
-      {/* headline */}
-      {selectedBlock.type === 'headline' && (
-        <Textbox label="headline" defaultValue={selectedBlock.content} onBlur={handleContentBlur} />
-      )}
-
-      {/* paragraph */}
-      {selectedBlock.type === 'paragraph' && (
-        <Textarea
-          label="content (supports markdown)"
-          defaultValue={selectedBlock.content}
-          onBlur={handleContentBlur}
-        />
-      )}
+      {/* block editors */}
+      {selectedBlock.type === 'row' && <BlockEditorRow />}
+      {selectedBlock.type === 'headline' && <BlockEditorHeadline />}
+      {selectedBlock.type === 'paragraph' && <BlockEditorParagraph />}
+      {selectedBlock.type === 'cta' && <BlockEditorCta />}
+      {selectedBlock.type === 'image' && <BlockEditorImage />}
     </div>
   );
 };

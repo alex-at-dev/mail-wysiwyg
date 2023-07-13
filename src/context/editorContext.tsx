@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Context, useState } from 'react';
 import { useTree } from '../hooks/useTree';
 import { TreeEntry } from '../modules/tree';
 import { Block } from '../types/Block';
@@ -6,24 +6,24 @@ import { ReorderType } from '../types/ReorderType';
 import { Theme } from '../types/Theme';
 import { WithChildren } from '../types/WithChildren';
 
-interface EditorContextValue {
+interface EditorContextValue<T> {
   theme: Theme;
   setTheme: (theme: Theme) => void;
 
   selectedBlockId: string | null;
   setSelectedBlockId: (id: string | null) => void;
 
-  root: Block;
-  byId: (id: string) => TreeEntry<Block>;
-  getParentThat: (predicate: (node: Block) => boolean, initialId: string) => Block | null;
-  addBlock: (node: Block, parentId: string) => void;
-  createBlock: (data: Omit<Block, 'id'>) => Block;
-  updateBlock: (updatedBlock: Block) => void;
-  removeBlock: (id: string) => void;
+  root: Block<T>;
+  byId: (id: string | null) => TreeEntry<Block<T>> | null;
+  getParentThat: (predicate: (node: Block<T>) => boolean, initialId: string) => Block<T> | null;
+  addBlock: (node: Block<T>, parentId: string) => void;
+  createBlock: (data: Omit<Block<T>, 'id'>) => Block<T>;
+  updateBlock: (updatedBlock: Block<T>) => void;
+  removeBlock: (id: string | null) => void;
   reorderBlocks: (srcId: string, targetId: string, type: ReorderType) => void;
 }
 
-const EditorContext = React.createContext({} as EditorContextValue);
+const EditorContext = React.createContext({} as EditorContextValue<unknown>);
 
 const initialTheme: Theme = {
   fontWeight: 400,
@@ -32,8 +32,8 @@ const initialTheme: Theme = {
   colors: [{ name: 'text-base', hex: '#000' }],
 };
 
-export const EditorContextProvider: React.FC<WithChildren> = ({ children }) => {
-  const tree = useTree<Block>();
+export const EditorContextProvider = <T extends unknown>({ children }: WithChildren) => {
+  const tree = useTree<Block<T>>();
   const [theme, setTheme] = useState(initialTheme);
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
 
@@ -54,7 +54,14 @@ export const EditorContextProvider: React.FC<WithChildren> = ({ children }) => {
     reorderBlocks: tree.reorderChildren,
   };
 
-  return <EditorContext.Provider value={contextValue}>{children}</EditorContext.Provider>;
+  return (
+    <EditorContext.Provider value={contextValue as unknown as EditorContextValue<unknown>}>
+      {children}
+    </EditorContext.Provider>
+  );
 };
 
-export const useEditorContext = () => React.useContext(EditorContext);
+export const useEditorContext = <T extends unknown>() =>
+  React.useContext<EditorContextValue<T>>(
+    EditorContext as unknown as Context<EditorContextValue<T>>
+  );
