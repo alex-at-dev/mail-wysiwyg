@@ -1,5 +1,4 @@
 import { ReorderType } from '../types/ReorderType';
-import { getNextId } from './util';
 
 // TODO Unit-tests
 
@@ -21,12 +20,10 @@ export interface TreeEntry<T extends TNode> {
 }
 
 export class Tree<T extends TNode> {
-  nodeName: string = 'node';
   root: T;
   byId: { [id: string]: TreeEntry<T> };
 
-  constructor(nodeName?: string, rootData?: any) {
-    if (nodeName) this.nodeName = nodeName;
+  constructor(rootData?: any) {
     this.root = this.createNode(rootData || {});
     this.byId = { [this.root.id]: { node: this.root, parent: null } };
   }
@@ -54,7 +51,7 @@ export class Tree<T extends TNode> {
    * @returns node data plus id ready to be passed to {@link addNode}.
    */
   createNode(data: Omit<T, 'id'>) {
-    const id = getNextId(this.nodeName);
+    const id = crypto.randomUUID();
     return { ...data, id } as T;
   }
 
@@ -146,6 +143,14 @@ export class Tree<T extends TNode> {
    */
   getRoot() {
     return { ...this.root };
+  }
+
+  serialize() {
+    return JSON.stringify(this.root);
+  }
+
+  deserialize(val: string) {
+    console.log('deserialize', val);
   }
 
   /**
