@@ -1,7 +1,7 @@
 import { FocusEvent } from 'react';
+import { useEditorContext } from '../../context/useEditorContext';
 import { BlockDataCta } from '../../types/BlockDataCta';
 import { Textbox } from '../Textbox';
-import { useEditorContext } from '../../context/useEditorContext';
 
 export const BlockEditorCta: React.FC = () => {
   const { selectedBlockId, byId, updateBlock } = useEditorContext<BlockDataCta>();

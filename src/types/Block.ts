@@ -1,4 +1,5 @@
 import { TNode } from '../modules/tree';
+import { BlockStyle } from './BlockStyle';
 import { BlockType } from './BlockType';
 
 export interface Block<T = unknown> extends TNode {
@@ -7,4 +8,5 @@ export interface Block<T = unknown> extends TNode {
   content?: string;
   children?: Block<T>[];
   data?: T;
+  style: BlockStyle;
 }
