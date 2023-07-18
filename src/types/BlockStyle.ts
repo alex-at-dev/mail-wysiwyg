@@ -1,5 +1,5 @@
 export interface BlockStyle {
-  padding: number;
-  color: string;
-  background: string;
+  padding?: number;
+  color?: string;
+  background?: string;
 }

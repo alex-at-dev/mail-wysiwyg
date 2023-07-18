@@ -33,9 +33,13 @@ const initialTheme: Theme = {
 };
 
 export const EditorContextProvider = <T extends unknown>({ children }: WithChildren) => {
-  const tree = useTree<Block<T>>();
+  const tree = useTree<Block<T>>('editorContext');
   const [theme, setTheme] = useState(initialTheme);
   const [selectedBlockId, setSelectedBlockId] = useState<string | null>(null);
+
+  const updateBlock = (updatedBlock: Block<T>) => {
+    tree.updateNode(updatedBlock);
+  };
 
   const contextValue = {
     theme,
@@ -50,7 +54,7 @@ export const EditorContextProvider = <T extends unknown>({ children }: WithChild
     createBlock: tree.createNode,
     addBlock: tree.addNode,
     removeBlock: tree.removeNode,
-    updateBlock: tree.updateNode,
+    updateBlock,
     reorderBlocks: tree.reorderChildren,
   };
 

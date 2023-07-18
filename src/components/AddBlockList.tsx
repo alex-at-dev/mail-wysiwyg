@@ -7,8 +7,8 @@ import { SettingsButton } from './SettingsButton';
 export const AddBlockList: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
   const { root, selectedBlockId, createBlock, addBlock, getParentThat } = useEditorContext();
 
-  const handleAddBlockClick = (type: BlockType) => {
-    const block = createBlock({ type });
+  const handleAddBlockClick = <T extends {}>(type: BlockType, data?: T) => {
+    const block = createBlock({ type, style: {}, data });
 
     // use selected block as parent if it's a row
     let parentId: string | null = root.id;
@@ -25,7 +25,7 @@ export const AddBlockList: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
         icon={typeToIcon['row']}
         label="Row"
         description="Your basic layout building block"
-        onClick={() => handleAddBlockClick('row')}
+        onClick={() => handleAddBlockClick('row', { direction: 'row' })}
       />
       <SettingsButton
         icon={typeToIcon['headline']}

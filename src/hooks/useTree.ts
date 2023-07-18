@@ -1,14 +1,18 @@
 import { MutableRefObject, useRef, useState } from 'react';
 import { TNode, Tree } from '../modules/tree';
 
-export function useTree<T extends TNode>() {
+export function useTree<T extends TNode>(name: string) {
   const tree = useRef<Tree<T>>(null) as MutableRefObject<Tree<T>>;
-  if (tree.current === null) tree.current = new Tree<T>();
+  if (tree.current === null) {
+    tree.current = new Tree<T>();
+    const storage = localStorage.getItem(name);
+    if (storage) tree.current.deserialize(storage);
+  }
   const [root, setRoot] = useState(tree.current.getRoot());
 
   /**
    * Proxies the given function to update the root node after {@link fn} has run.
-   * Used on all update actions.
+   * Also works as a notifier for react to update the dom. Used on all update actions.
    * @param fn function to run / proxy
    * @returns type-safe proxied function
    */
@@ -16,6 +20,7 @@ export function useTree<T extends TNode>() {
     return (...args: A): R => {
       const res = fn.apply(tree.current, args);
       setRoot(tree.current.getRoot());
+      localStorage.setItem(name, tree.current?.serialize());
       return res;
     };
   };

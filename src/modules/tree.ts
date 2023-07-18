@@ -150,7 +150,21 @@ export class Tree<T extends TNode> {
   }
 
   deserialize(val: string) {
-    console.log('deserialize', val);
+    const parsed = JSON.parse(val);
+    if (!parsed.id || !parsed.children) return;
+    const root = parsed as T;
+    this.root = root;
+    this.updateById();
+  }
+
+  private updateById() {
+    const updateLayer = (node: T, parentId: string | null) => {
+      this.byId[node.id] = { node, parent: parentId };
+      if (node.children?.length) node.children.forEach((c) => updateLayer(c as T, node.id));
+    };
+
+    this.byId = {};
+    updateLayer(this.root, null);
   }
 
   /**

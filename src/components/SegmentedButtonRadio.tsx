@@ -14,6 +14,7 @@ interface SegmentedButtonRadioProps extends HTMLProps<HTMLInputElement> {
   name: string;
   label: string;
   options: (string | ChoiceboxData)[];
+  initialValue?: string;
 }
 
 export const SegmentedButtonRadio: React.FC<SegmentedButtonRadioProps> = ({
@@ -21,6 +22,7 @@ export const SegmentedButtonRadio: React.FC<SegmentedButtonRadioProps> = ({
   name,
   label,
   options,
+  initialValue,
   className,
   ...props
 }) => {
@@ -39,6 +41,7 @@ export const SegmentedButtonRadio: React.FC<SegmentedButtonRadioProps> = ({
               type="radio"
               name={name}
               value={o.value}
+              defaultChecked={initialValue === o.value}
               {...props}
             />
             <label

@@ -24,6 +24,7 @@ export const BlockEditorRow: React.FC = () => {
           { value: 'col', label: 'Column' },
         ]}
         onChange={handleDirectionChange}
+        initialValue={selectedBlock.node.data?.direction}
       />
 
       <h2 className="uppercase-list-title mb-3 mt-6">Add Block</h2>
