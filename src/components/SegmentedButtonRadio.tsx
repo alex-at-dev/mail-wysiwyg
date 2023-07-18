@@ -3,7 +3,7 @@ import { cx } from '../modules/util';
 import { InputLabel } from './InputLabel';
 
 interface ChoiceboxData {
-  value: string;
+  value: string | number;
   label: string;
 }
 
@@ -14,7 +14,7 @@ interface SegmentedButtonRadioProps extends HTMLProps<HTMLInputElement> {
   name: string;
   label: string;
   options: (string | ChoiceboxData)[];
-  initialValue?: string;
+  initialValue?: string | number;
 }
 
 export const SegmentedButtonRadio: React.FC<SegmentedButtonRadioProps> = ({

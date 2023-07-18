@@ -24,7 +24,9 @@ export class Tree<T extends TNode> {
   byId: { [id: string]: TreeEntry<T> };
 
   constructor(rootData?: any) {
-    this.root = this.createNode(rootData || {});
+    let rootData_safe = rootData ?? {};
+    rootData_safe.type = 'root';
+    this.root = this.createNode(rootData_safe);
     this.byId = { [this.root.id]: { node: this.root, parent: null } };
   }
 

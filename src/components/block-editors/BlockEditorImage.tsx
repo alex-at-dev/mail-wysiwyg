@@ -17,7 +17,7 @@ export const BlockEditorImage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div key={selectedBlockId}>
       <Textbox
         label="image source ('https://...')"
         defaultValue={selectedBlock.node.data?.src}

@@ -1,6 +1,7 @@
 import { MouseEvent } from 'react';
 import { BlockList } from '../components/BlockList';
 import { BlockSettingsPanel } from '../components/BlockSettingsPanel';
+import { BlockWysiwyg } from '../components/BlockWysiwyg';
 import { EmptyState } from '../components/EmptyState';
 import { GeneralSettingsPanel } from '../components/GeneralSettingsPanel';
 import { useEditorContext } from '../context/useEditorContext';
@@ -39,7 +40,10 @@ export const MailEditPage: React.FC = () => {
               the right.
             </EmptyState>
           ) : (
-            <pre>{JSON.stringify(root, null, 2)}</pre>
+            <>
+              <BlockWysiwyg block={root} />
+              <pre>{JSON.stringify(root, null, 2)}</pre>
+            </>
           )}
         </div>
       </div>

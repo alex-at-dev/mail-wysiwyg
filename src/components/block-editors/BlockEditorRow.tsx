@@ -15,7 +15,7 @@ export const BlockEditorRow: React.FC = () => {
   };
 
   return (
-    <div>
+    <div key={selectedBlockId}>
       <SegmentedButtonRadio
         name="direction"
         label="Row direction"

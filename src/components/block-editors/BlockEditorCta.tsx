@@ -17,7 +17,7 @@ export const BlockEditorCta: React.FC = () => {
   };
 
   return (
-    <div>
+    <div key={selectedBlockId}>
       <Textbox
         label="button text"
         defaultValue={selectedBlock.node.content}

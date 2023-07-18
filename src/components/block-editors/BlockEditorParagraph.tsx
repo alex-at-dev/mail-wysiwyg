@@ -13,6 +13,7 @@ export const BlockEditorParagraph: React.FC = () => {
 
   return (
     <Textarea
+      key={selectedBlockId}
       label="content (supports markdown)"
       defaultValue={selectedBlock.node.content}
       onBlur={handleContentBlur}

@@ -1,21 +1,44 @@
 import { FocusEvent } from 'react';
 import { useEditorContext } from '../../context/useEditorContext';
+import { BlockDataHeadline } from '../../types/BlockDataHeadline';
+import { SegmentedButtonRadio } from '../SegmentedButtonRadio';
 import { Textbox } from '../Textbox';
 
 export const BlockEditorHeadline: React.FC = () => {
-  const { byId, selectedBlockId, updateBlock } = useEditorContext();
+  const { byId, selectedBlockId, updateBlock } = useEditorContext<BlockDataHeadline>();
   const selectedBlock = byId(selectedBlockId);
   if (!selectedBlock?.node) return null;
+
+  const handleLevelChange = (ev: FocusEvent<HTMLInputElement>) => {
+    const parsed = parseInt(ev.target.value);
+    if (isNaN(parsed) || (parsed !== 1 && parsed !== 2 && parsed !== 3 && parsed !== 4)) return;
+    updateBlock({ ...selectedBlock.node, data: { level: parsed } });
+  };
 
   const handleContentBlur = (ev: FocusEvent<HTMLInputElement>) => {
     updateBlock({ ...selectedBlock.node, content: ev.target.value });
   };
 
   return (
-    <Textbox
-      label="headline"
-      defaultValue={selectedBlock.node.content}
-      onBlur={handleContentBlur}
-    />
+    <div key={selectedBlockId}>
+      <SegmentedButtonRadio
+        name="headline-level"
+        label="Level"
+        options={[
+          { value: 1, label: 'h1' },
+          { value: 2, label: 'h2' },
+          { value: 3, label: 'h3' },
+          { value: 4, label: 'h4' },
+        ]}
+        initialValue={selectedBlock.node.data?.level}
+        onChange={handleLevelChange}
+      />
+      <Textbox
+        className="mt-6"
+        label="headline"
+        defaultValue={selectedBlock.node.content}
+        onBlur={handleContentBlur}
+      />
+    </div>
   );
 };
