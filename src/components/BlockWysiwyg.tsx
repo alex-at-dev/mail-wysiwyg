@@ -26,7 +26,7 @@ export const BlockWysiwyg: React.FC<BlockWysiwygProps> = ({ block }) => {
       if (!blockRow.children?.length || !blockRow.data) return null;
       if (blockRow.data.direction === 'row')
         return (
-          <table width="100">
+          <table width="100%">
             <tbody>
               <tr>
                 {blockRow.children.map((b) => (

@@ -19,9 +19,12 @@ export const MailEditPage: React.FC = () => {
   };
 
   return (
-    <div className="grid min-h-[100vh] grid-cols-[18rem,1fr,18rem] justify-between">
+    <div>
       {/* blocks */}
-      <div className="flex flex-col border-r" onClick={handleUnselectBlock}>
+      <div
+        className="fixed top-0 left-0 flex h-full w-96 flex-col overflow-y-auto overflow-x-hidden border-r bg-white"
+        onClick={handleUnselectBlock}
+      >
         <h2 className="uppercase-list-title mx-4 mb-3 mt-4">Blocks</h2>
         {root.children && <BlockList blocks={root.children} />}
         <div
@@ -32,8 +35,8 @@ export const MailEditPage: React.FC = () => {
       </div>
 
       {/* main page */}
-      <div className="grow overflow-auto bg-neutral-100" onClick={handleUnselectBlock}>
-        <div className="mx-auto my-8 w-[800px] bg-white shadow-page" onClick={handleUnselectBlock}>
+      <div onClick={handleUnselectBlock}>
+        <div className="mx-auto my-8 w-[800px] shadow-page" onClick={handleUnselectBlock}>
           {!root.children ? (
             <EmptyState className="px-6 py-6">
               You will see a preview of the generated mail here once you add your first block from
@@ -49,7 +52,7 @@ export const MailEditPage: React.FC = () => {
       </div>
 
       {/* settings & actions */}
-      <div className="border-l py-4">
+      <div className="fixed top-0 right-0 h-full w-80 border-l bg-white py-4">
         <GeneralSettingsPanel className={cx({ hidden: !!selectedBlockId })} />
         <BlockSettingsPanel className={cx({ hidden: !selectedBlockId })} />
       </div>

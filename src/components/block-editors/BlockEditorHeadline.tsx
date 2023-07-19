@@ -2,7 +2,7 @@ import { FocusEvent } from 'react';
 import { useEditorContext } from '../../context/useEditorContext';
 import { BlockDataHeadline } from '../../types/BlockDataHeadline';
 import { SegmentedButtonRadio } from '../SegmentedButtonRadio';
-import { Textbox } from '../Textbox';
+import { Textarea } from '../Textarea';
 
 export const BlockEditorHeadline: React.FC = () => {
   const { byId, selectedBlockId, updateBlock } = useEditorContext<BlockDataHeadline>();
@@ -15,7 +15,7 @@ export const BlockEditorHeadline: React.FC = () => {
     updateBlock({ ...selectedBlock.node, data: { level: parsed } });
   };
 
-  const handleContentBlur = (ev: FocusEvent<HTMLInputElement>) => {
+  const handleContentBlur = (ev: FocusEvent<HTMLTextAreaElement>) => {
     updateBlock({ ...selectedBlock.node, content: ev.target.value });
   };
 
@@ -33,7 +33,7 @@ export const BlockEditorHeadline: React.FC = () => {
         initialValue={selectedBlock.node.data?.level}
         onChange={handleLevelChange}
       />
-      <Textbox
+      <Textarea
         className="mt-6"
         label="headline"
         defaultValue={selectedBlock.node.content}

@@ -10,7 +10,7 @@ export const Textarea: React.FC<TextareaProps> = ({ label, className, ...props }
     <div className={className}>
       <label>
         <InputLabel>{label}</InputLabel>
-        <textarea {...props} className="w-full rounded border border-neutral-300 p-1" rows={3} />
+        <textarea rows={3} {...props} className="w-full rounded border border-neutral-300 p-1" />
       </label>
     </div>
   );
