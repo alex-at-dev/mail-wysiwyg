@@ -1,5 +1,5 @@
 import { Color } from './Color';
-import { FontWeight } from './FontWeight';
+import { FontSetting } from './FontSetting';
 
 export interface Theme {
   layout: {
@@ -7,10 +7,6 @@ export interface Theme {
     mailBg: string;
     mailWidth: number;
   };
-  font: {
-    weight: FontWeight;
-    size: number;
-    family: string;
-  };
+  fonts: FontSetting[];
   colors: Color[];
 }
