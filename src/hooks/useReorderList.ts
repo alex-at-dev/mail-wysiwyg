@@ -1,4 +1,6 @@
 import { DragEvent } from 'react';
+import { DragConfig } from '../types/DragConfig';
+import { ReorderHandlers } from '../types/ReorderHandlers';
 import { ReorderType } from '../types/ReorderType';
 
 // TODO cleanup this files head section
@@ -12,17 +14,6 @@ document.body.appendChild(dragImage);
 
 type DragEv = DragEvent<HTMLElement>;
 type DragHandler = (ev: DragEv, id: string) => void;
-
-interface DragConfig {
-  /** If true, items can be dragged into this. */
-  isContainer: boolean;
-  /** CSS-class to signal the item will be put above this dropzone. */
-  dropAtTopCls: string;
-  /** CSS-class to signal the item will be put below this dropzone. */
-  dropAtBottomCls: string;
-  /** CSS-class to signal the item will be inserted into this dropzone. */
-  dropIntoCls: string;
-}
 
 const defaultConfig = {
   isContainer: false,
@@ -116,7 +107,7 @@ export const useReorderList = (
    * @param config Drag config.
    * @returns object of handlers applicable to a JSX element.
    */
-  const getHandlers = (id: string, config?: Partial<DragConfig>) => {
+  const getHandlers = (id: string, config?: Partial<DragConfig>): ReorderHandlers => {
     const elConfig = { ...hookConfig, ...config };
 
     return {
