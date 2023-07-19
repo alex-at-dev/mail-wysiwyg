@@ -1,5 +1,5 @@
 import { FocusEvent } from 'react';
-import { useEditorContext } from '../../context/useEditorContext';
+import { useEditorContext } from '../../hooks/useEditorContext';
 import { BlockDataCta } from '../../types/BlockDataCta';
 import { Textbox } from '../Textbox';
 

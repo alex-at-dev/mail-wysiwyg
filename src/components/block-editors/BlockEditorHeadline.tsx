@@ -1,5 +1,5 @@
 import { FocusEvent } from 'react';
-import { useEditorContext } from '../../context/useEditorContext';
+import { useEditorContext } from '../../hooks/useEditorContext';
 import { BlockDataHeadline } from '../../types/BlockDataHeadline';
 import { SegmentedButtonRadio } from '../SegmentedButtonRadio';
 import { Textarea } from '../Textarea';

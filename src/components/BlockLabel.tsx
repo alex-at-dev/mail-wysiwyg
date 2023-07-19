@@ -1,5 +1,5 @@
 import { FocusEvent, KeyboardEvent } from 'react';
-import { useEditorContext } from '../context/useEditorContext';
+import { useEditorContext } from '../hooks/useEditorContext';
 import { Block } from '../types/Block';
 import { BlockType } from '../types/BlockType';
 

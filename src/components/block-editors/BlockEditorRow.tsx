@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { useEditorContext } from '../../context/useEditorContext';
+import { useEditorContext } from '../../hooks/useEditorContext';
 import { BlockDataRow } from '../../types/BlockDataRow';
 import { AddBlockList } from '../AddBlockList';
 import { SegmentedButtonRadio } from '../SegmentedButtonRadio';

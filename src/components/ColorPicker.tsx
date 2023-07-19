@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useEditorContext } from '../context/useEditorContext';
+import { useEditorContext } from '../hooks/useEditorContext';
 import { cx } from '../modules/util';
 import { Color } from '../types/Color';
 import { PropertyButton } from './PropertyButton';

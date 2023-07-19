@@ -1,5 +1,5 @@
 import { HTMLProps } from 'react';
-import { useEditorContext } from '../context/useEditorContext';
+import { useEditorContext } from '../hooks/useEditorContext';
 import { BlockType } from '../types/BlockType';
 import { typeToIcon } from '../util/typeToIcon';
 import { SettingsButton } from './SettingsButton';
@@ -30,7 +30,7 @@ export const AddBlockList: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
       <SettingsButton
         icon={typeToIcon['headline']}
         label="Headline"
-        description="h1-h6 headline"
+        description="h1-h4 headline"
         onClick={() => handleAddBlockClick('headline')}
       />
       <SettingsButton

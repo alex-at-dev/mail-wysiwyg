@@ -4,7 +4,7 @@ import { BlockSettingsPanel } from '../components/BlockSettingsPanel';
 import { BlockWysiwyg } from '../components/BlockWysiwyg';
 import { EmptyState } from '../components/EmptyState';
 import { GeneralSettingsPanel } from '../components/GeneralSettingsPanel';
-import { useEditorContext } from '../context/useEditorContext';
+import { useEditorContext } from '../hooks/useEditorContext';
 import { useReorderList } from '../hooks/useReorderList';
 import { EOL } from '../modules/tree';
 import { cx } from '../modules/util';
@@ -52,7 +52,7 @@ export const MailEditPage: React.FC = () => {
       </div>
 
       {/* settings & actions */}
-      <div className="fixed top-0 right-0 h-full w-80 border-l bg-white py-4">
+      <div className="fixed top-0 right-0 h-full w-80 overflow-y-auto overflow-x-hidden border-l bg-white py-4">
         <GeneralSettingsPanel className={cx({ hidden: !!selectedBlockId })} />
         <BlockSettingsPanel className={cx({ hidden: !selectedBlockId })} />
       </div>
