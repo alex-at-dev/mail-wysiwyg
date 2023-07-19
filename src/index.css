@@ -6,6 +6,10 @@
   .uppercase-list-title {
     @apply text-xs font-semibold uppercase tracking-wider text-neutral-400;
   }
+
+  .uppercase-sub-title {
+    @apply text-xs uppercase tracking-wider;
+  }
 }
 
 /* reorder list */
