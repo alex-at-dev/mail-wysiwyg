@@ -2,6 +2,7 @@ import { DragEvent } from 'react';
 import { DragConfig } from '../types/DragConfig';
 import { ReorderHandlers } from '../types/ReorderHandlers';
 import { ReorderType } from '../types/ReorderType';
+import { Uuid4 } from '../types/Uuid';
 
 // TODO cleanup this files head section
 
@@ -13,7 +14,8 @@ dragImage.style.left = '-100%';
 document.body.appendChild(dragImage);
 
 type DragEv = DragEvent<HTMLElement>;
-type DragHandler = (ev: DragEv, id: string) => void;
+type DragHandler = (ev: DragEv, id: Uuid4OrEol) => void;
+type Uuid4OrEol = Uuid4 | 'eol';
 
 const defaultConfig = {
   isContainer: false,
@@ -23,7 +25,7 @@ const defaultConfig = {
 };
 
 export const useReorderList = (
-  onItemsReordered: (dragId: string, dropId: string, type: ReorderType) => void,
+  onItemsReordered: (dragId: Uuid4, dropId: Uuid4OrEol, type: ReorderType) => void,
   config?: Partial<DragConfig>
 ) => {
   /** hook-level config. May be overwritten per element. */
@@ -50,7 +52,7 @@ export const useReorderList = (
    * @param ev React drag event.
    * @param config Drag config.
    */
-  const updateDropzoneClasses = (ev: DragEv, id: string, config: DragConfig) => {
+  const updateDropzoneClasses = (ev: DragEv, id: Uuid4OrEol, config: DragConfig) => {
     ev.preventDefault();
 
     const relativeY = getRelativeMouseY(ev);
@@ -85,8 +87,8 @@ export const useReorderList = (
    * @param dropId Dropzone item id.
    * @param config Drag config.
    */
-  const handleDrop = (ev: DragEv, dropId: string, config: DragConfig) => {
-    const dragId = ev.dataTransfer.getData('text');
+  const handleDrop = (ev: DragEv, dropId: Uuid4OrEol, config: DragConfig) => {
+    const dragId = ev.dataTransfer.getData('text') as Uuid4;
     removeDropzoneClasses(ev, config);
 
     // dropped item on itself -> nothing to do
@@ -107,7 +109,7 @@ export const useReorderList = (
    * @param config Drag config.
    * @returns object of handlers applicable to a JSX element.
    */
-  const getHandlers = (id: string, config?: Partial<DragConfig>): ReorderHandlers => {
+  const getHandlers = (id: Uuid4OrEol, config?: Partial<DragConfig>): ReorderHandlers => {
     const elConfig = { ...hookConfig, ...config };
 
     return {

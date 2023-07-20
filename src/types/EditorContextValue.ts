@@ -1,21 +1,22 @@
 import { TreeEntry } from '../modules/tree';
 import { Block } from './Block';
 import { ReorderType } from './ReorderType';
-import { Theme } from './Theme';
+import { Uuid4 } from './Uuid';
 
 export interface EditorContextValue<T> {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
+  selectedBlockId: Uuid4 | null;
+  setSelectedBlockId: React.Dispatch<React.SetStateAction<Uuid4 | null>>;
+  selectedEntry: TreeEntry<Block<T>>;
 
-  selectedBlockId: string | null;
-  setSelectedBlockId: (id: string | null) => void;
+  hoveredBlockId: Uuid4;
+  setHoveredBlockId: React.Dispatch<React.SetStateAction<Uuid4 | null>>;
 
   root: Block<T>;
-  byId: (id: string | null) => TreeEntry<Block<T>> | null;
-  getParentThat: (predicate: (node: Block<T>) => boolean, initialId: string) => Block<T> | null;
+  byId: (id: Uuid4 | null) => TreeEntry<Block<T>> | null;
+  getParentThat: (predicate: (node: Block<T>) => boolean, initialId: Uuid4) => Block<T> | null;
   addBlock: (node: Block<T>, parentId: string) => void;
   createBlock: (data: Omit<Block<T>, 'id'>) => Block<T>;
   updateBlock: (updatedBlock: Block<T>) => void;
-  removeBlock: (id: string | null) => void;
-  reorderBlocks: (srcId: string, targetId: string, type: ReorderType) => void;
+  removeBlock: (id: Uuid4 | null) => void;
+  reorderBlocks: (srcId: Uuid4, targetId: Uuid4 | 'eol', type: ReorderType) => void;
 }

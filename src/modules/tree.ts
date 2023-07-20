@@ -1,4 +1,5 @@
 import { ReorderType } from '../types/ReorderType';
+import { Uuid4 } from '../types/Uuid';
 
 // TODO Unit-tests
 
@@ -10,7 +11,7 @@ export const EOL = 'eol';
 
 // TODO export types?
 export interface TNode {
-  id: string;
+  id: Uuid4;
   children?: TNode[];
 }
 

@@ -1,3 +1,5 @@
+import { Uuid4 } from './Uuid';
+
 export interface WithId {
-  id: string;
+  id: Uuid4;
 }

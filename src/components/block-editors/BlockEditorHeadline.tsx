@@ -2,6 +2,7 @@ import { FocusEvent } from 'react';
 import { useEditorContext } from '../../hooks/useEditorContext';
 import { BlockDataHeadline } from '../../types/BlockDataHeadline';
 import { SegmentedButtonRadio } from '../SegmentedButtonRadio';
+import { StyleEditor } from '../StyleEditor';
 import { Textarea } from '../Textarea';
 
 export const BlockEditorHeadline: React.FC = () => {
@@ -39,6 +40,8 @@ export const BlockEditorHeadline: React.FC = () => {
         defaultValue={selectedBlock.node.content}
         onBlur={handleContentBlur}
       />
+
+      <StyleEditor className="mt-6" />
     </div>
   );
 };

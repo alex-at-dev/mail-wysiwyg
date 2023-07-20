@@ -1,8 +1,10 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../context/themeContext';
+import { BlockStyle } from '../types/BlockStyle';
 import { Color } from '../types/Color';
 import { FontSetting } from '../types/FontSetting';
 import { ReorderType } from '../types/ReorderType';
+import { Uuid4 } from '../types/Uuid';
 import { WithId } from '../types/WithId';
 
 type ThemeField = 'colors' | 'fonts';
@@ -68,6 +70,12 @@ export const useThemeContext = () => {
   const updateColor = (color: Color) => updateFieldItem<Color>('colors', color);
   const reorderColors = (srcId: string, targetId: string, type: ReorderType) =>
     reorderFieldItems('colors', srcId, targetId, type);
+  const getColor = (id: Uuid4) => theme.colors.find((c) => c.id === id);
+  const getColorStyle = (colorId: Uuid4, property: 'color' | 'background' = 'color') => {
+    const color = getColor(colorId);
+    if (!color) return null;
+    return { [property]: color.hex };
+  };
 
   // FONTS
   const addFont = () => {
@@ -84,16 +92,49 @@ export const useThemeContext = () => {
   const updateFont = (font: FontSetting) => updateFieldItem<FontSetting>('fonts', font);
   const reorderFonts = (srcId: string, targetId: string, type: ReorderType) =>
     reorderFieldItems('fonts', srcId, targetId, type);
+  const getFont = (id: Uuid4) => theme.fonts.find((f) => f.id === id);
+  const getFontStyle = (fontId: Uuid4) => {
+    const font = getFont(fontId);
+    if (!font) return null;
+    return {
+      fontWeight: font.weight,
+      fontFamily: font.family,
+      fontSize: font.size + 'px',
+      lineHeight: font.lineHeight,
+    };
+  };
+
+  const getBlockStyle = ({ color, background, font }: BlockStyle) => {
+    let styles = [];
+    if (color) {
+      const colorStyle = getColorStyle(color);
+      if (colorStyle) styles.push(colorStyle);
+    }
+    if (background) {
+      const bgStyle = getColorStyle(background, 'background');
+      if (bgStyle) styles.push(bgStyle);
+    }
+    if (font) {
+      const fontStyle = getFontStyle(font);
+      if (fontStyle) styles.push(fontStyle);
+    }
+    return Object.assign({}, ...styles);
+  };
 
   return {
     theme,
+    getBlockStyle,
+    // colors
     addColor,
     removeColor,
     updateColor,
     reorderColors,
+    getColor,
+    // fonts
     addFont,
     removeFont,
     updateFont,
     reorderFonts,
+    getFont,
   };
 };

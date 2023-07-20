@@ -56,7 +56,6 @@ export const ResizableContainer: React.FC<ResizableContainerProps> = ({
     }
   };
   const handleMouseUp = (ev: MouseEvent) => {
-    console.log('up');
     setIsDragging(false);
   };
 

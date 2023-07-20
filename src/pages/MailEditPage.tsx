@@ -37,7 +37,10 @@ export const MailEditPage: React.FC = () => {
       </ResizableContainer>
 
       {/* main page */}
-      <div onClick={handleUnselectBlock} className="h-screen flex-1 overflow-auto">
+      <div
+        onClick={handleUnselectBlock}
+        className="h-screen flex-1 overflow-y-auto overflow-x-hidden"
+      >
         <div className="mx-auto my-8 w-[800px] shadow-page" onClick={handleUnselectBlock}>
           {!root.children ? (
             <EmptyState className="px-6 py-6">

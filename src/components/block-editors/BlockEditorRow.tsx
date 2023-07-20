@@ -3,6 +3,7 @@ import { useEditorContext } from '../../hooks/useEditorContext';
 import { BlockDataRow } from '../../types/BlockDataRow';
 import { AddBlockList } from '../AddBlockList';
 import { SegmentedButtonRadio } from '../SegmentedButtonRadio';
+import { StyleEditor } from '../StyleEditor';
 
 export const BlockEditorRow: React.FC = () => {
   const { byId, selectedBlockId, updateBlock } = useEditorContext<BlockDataRow>();
@@ -26,6 +27,8 @@ export const BlockEditorRow: React.FC = () => {
         onChange={handleDirectionChange}
         initialValue={selectedBlock.node.data?.direction}
       />
+
+      <StyleEditor hiddenEditors={['color', 'font']} className="mt-6" />
 
       <h2 className="uppercase-list-title mb-3 mt-6">Add Block</h2>
       <AddBlockList className="-mx-4 -mt-2" />

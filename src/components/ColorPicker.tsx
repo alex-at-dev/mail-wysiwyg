@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useEditorContext } from '../hooks/useEditorContext';
+import { useThemeContext } from '../hooks/useThemeContext';
 import { cx } from '../modules/util';
 import { Color } from '../types/Color';
 import { PropertyButton } from './PropertyButton';
@@ -9,7 +9,11 @@ interface ColorPickerProps {
   onSelectedColorChange?: (color: Color) => void;
 }
 
-const defaultColor: Color = { id: '-1', name: '<Select a color>', hex: 'transparent' };
+const defaultColor: Color = {
+  id: '0000-0000-0000-0000-0000',
+  name: '<Select a color>',
+  hex: 'transparent',
+};
 
 const ColorLabel: React.FC<{ color?: Color }> = ({ color }) => {
   if (!color) color = defaultColor;
@@ -30,7 +34,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   onSelectedColorChange,
 }) => {
   const [open, setOpen] = useState(false);
-  const { theme } = useEditorContext();
+  const { theme } = useThemeContext();
 
   const handleColorSelect = (color: Color) => {
     if (onSelectedColorChange) onSelectedColorChange(color);
@@ -44,7 +48,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
       </PropertyButton>
       <div
         className={cx(
-          'absolute top-full flex min-w-[10rem] flex-col rounded border border-neutral-200 bg-white shadow-lg',
+          'absolute top-full z-30 flex min-w-[10rem] flex-col rounded border border-neutral-200 bg-white shadow-lg',
           { invisible: !open }
         )}
       >
