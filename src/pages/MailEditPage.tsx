@@ -4,6 +4,7 @@ import { BlockSettingsPanel } from '../components/BlockSettingsPanel';
 import { BlockWysiwyg } from '../components/BlockWysiwyg';
 import { EmptyState } from '../components/EmptyState';
 import { GeneralSettingsPanel } from '../components/GeneralSettingsPanel';
+import { ResizableContainer } from '../components/ResizableContainer';
 import { useEditorContext } from '../hooks/useEditorContext';
 import { useReorderList } from '../hooks/useReorderList';
 import { EOL } from '../modules/tree';
@@ -19,10 +20,11 @@ export const MailEditPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="flex">
       {/* blocks */}
-      <div
-        className="fixed top-0 left-0 flex h-full w-96 flex-col overflow-y-auto overflow-x-hidden border-r bg-white"
+      <ResizableContainer
+        side="right"
+        className="flex h-screen w-80 min-w-[8rem] max-w-md flex-none flex-col overflow-y-auto overflow-x-hidden border-r bg-white"
         onClick={handleUnselectBlock}
       >
         <h2 className="uppercase-list-title mx-4 mb-3 mt-4">Blocks</h2>
@@ -32,10 +34,10 @@ export const MailEditPage: React.FC = () => {
           className="min-h-[2rem] grow overflow-hidden pl-6"
           onClick={handleUnselectBlock}
         />
-      </div>
+      </ResizableContainer>
 
       {/* main page */}
-      <div onClick={handleUnselectBlock}>
+      <div onClick={handleUnselectBlock} className="h-screen flex-1 overflow-auto">
         <div className="mx-auto my-8 w-[800px] shadow-page" onClick={handleUnselectBlock}>
           {!root.children ? (
             <EmptyState className="px-6 py-6">
@@ -52,10 +54,13 @@ export const MailEditPage: React.FC = () => {
       </div>
 
       {/* settings & actions */}
-      <div className="fixed top-0 right-0 h-full w-80 overflow-y-auto overflow-x-hidden border-l bg-white py-4">
+      <ResizableContainer
+        side="left"
+        className="h-screen w-80 min-w-[16rem] max-w-sm flex-none overflow-y-auto overflow-x-hidden border-l bg-white py-4"
+      >
         <GeneralSettingsPanel className={cx({ hidden: !!selectedBlockId })} />
         <BlockSettingsPanel className={cx({ hidden: !selectedBlockId })} />
-      </div>
+      </ResizableContainer>
     </div>
   );
 };
