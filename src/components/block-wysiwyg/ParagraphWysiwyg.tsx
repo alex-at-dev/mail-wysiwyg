@@ -1,3 +1,4 @@
+import Markdown from 'markdown-to-jsx';
 import { useBlockWysiwygProps } from '../../hooks/useBlockWysiwygProps';
 import { Block } from '../../types/Block';
 
@@ -6,5 +7,11 @@ interface ParagraphWysiwygProps {
 }
 export const ParagraphWysiwyg: React.FC<ParagraphWysiwygProps> = ({ block }) => {
   const blockProps = useBlockWysiwygProps(block);
-  return <p {...blockProps}>{block.content}</p>;
+  if (!block.content) return null;
+
+  return (
+    <p {...blockProps}>
+      <Markdown>{block.content}</Markdown>
+    </p>
+  );
 };

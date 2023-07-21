@@ -59,7 +59,7 @@ export const MailEditPage: React.FC = () => {
       {/* settings & actions */}
       <ResizableContainer
         side="left"
-        className="h-screen w-80 min-w-[16rem] max-w-sm flex-none overflow-y-auto overflow-x-hidden border-l bg-white py-4"
+        className="h-screen w-80 min-w-[16rem] max-w-lg flex-none overflow-y-auto overflow-x-hidden border-l bg-white py-4"
       >
         <GeneralSettingsPanel className={cx({ hidden: !!selectedBlockId })} />
         <BlockSettingsPanel className={cx({ hidden: !selectedBlockId })} />
