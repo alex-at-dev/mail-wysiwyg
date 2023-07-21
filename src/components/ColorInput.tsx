@@ -1,9 +1,9 @@
 import { HTMLProps, useState } from 'react';
-import { cx } from '../modules/util';
+import { cx, newUuid } from '../modules/util';
 import { PropertyInput } from './PropertyInput';
 
 export const ColorInput: React.FC<HTMLProps<HTMLInputElement>> = ({ ...props }) => {
-  const [id] = useState(props.id || `color-${crypto.randomUUID()}`);
+  const [id] = useState(props.id || `color-${newUuid()}`);
 
   return (
     <div className="relative min-w-0">

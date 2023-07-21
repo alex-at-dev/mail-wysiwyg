@@ -1,8 +1,10 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../context/themeContext';
+import { newUuid } from '../modules/util';
 import { BlockStyle } from '../types/BlockStyle';
 import { Color } from '../types/Color';
 import { FontSetting } from '../types/FontSetting';
+import { MailLayout } from '../types/MailLayout';
 import { ReorderType } from '../types/ReorderType';
 import { Uuid4 } from '../types/Uuid';
 import { Uuid4OrEol } from '../types/Uuid4OrEol';
@@ -65,13 +67,13 @@ export const useThemeContext = () => {
 
   // COLORS
   const addColor = () => {
-    addFieldItem<Color>('colors', { id: crypto.randomUUID(), name: '', hex: '#ffffff' });
+    addFieldItem<Color>('colors', { id: newUuid(), name: '', hex: '#ffffff' });
   };
   const removeColor = (color: Color) => removeFieldItem<Color>('colors', color);
   const updateColor = (color: Color) => updateFieldItem<Color>('colors', color);
   const reorderColors = (srcId: Uuid4, targetId: Uuid4OrEol, type: ReorderType) =>
     reorderFieldItems('colors', srcId, targetId, type);
-  const getColor = (id: Uuid4) => theme.colors.find((c) => c.id === id);
+  const getColor = (id: Uuid4 | null) => theme.colors.find((c) => c.id === id);
   const getColorStyle = (colorId: Uuid4, property: 'color' | 'background' = 'color') => {
     const color = getColor(colorId);
     if (!color) return null;
@@ -81,7 +83,7 @@ export const useThemeContext = () => {
   // FONTS
   const addFont = () => {
     addFieldItem<FontSetting>('fonts', {
-      id: crypto.randomUUID(),
+      id: newUuid(),
       name: '',
       family: 'sans-serif',
       weight: 400,
@@ -93,7 +95,7 @@ export const useThemeContext = () => {
   const updateFont = (font: FontSetting) => updateFieldItem<FontSetting>('fonts', font);
   const reorderFonts = (srcId: Uuid4, targetId: Uuid4OrEol, type: ReorderType) =>
     reorderFieldItems('fonts', srcId, targetId, type);
-  const getFont = (id: Uuid4) => theme.fonts.find((f) => f.id === id);
+  const getFont = (id: Uuid4 | null) => theme.fonts.find((f) => f.id === id);
   const getFontStyle = (fontId: Uuid4) => {
     const font = getFont(fontId);
     if (!font) return null;
@@ -122,6 +124,11 @@ export const useThemeContext = () => {
     return Object.assign({}, ...styles);
   };
 
+  // LAYOUT
+  const updateLayout = (layout: Partial<MailLayout>) => {
+    setTheme({ ...theme, layout: { ...theme.layout, ...layout } });
+  };
+
   return {
     theme,
     getBlockStyle,
@@ -137,5 +144,7 @@ export const useThemeContext = () => {
     updateFont,
     reorderFonts,
     getFont,
+    // layout
+    updateLayout,
   };
 };

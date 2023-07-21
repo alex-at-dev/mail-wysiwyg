@@ -1,5 +1,6 @@
 import { ReorderType } from '../types/ReorderType';
 import { Uuid4 } from '../types/Uuid';
+import { newUuid } from './util';
 
 // TODO Unit-tests
 
@@ -54,7 +55,7 @@ export class Tree<T extends TNode> {
    * @returns node data plus id ready to be passed to {@link addNode}.
    */
   createNode(data: Omit<T, 'id'>) {
-    const id = crypto.randomUUID();
+    const id = newUuid();
     return { ...data, id } as T;
   }
 

@@ -1,12 +1,9 @@
 import { Color } from './Color';
 import { FontSetting } from './FontSetting';
+import { MailLayout } from './MailLayout';
 
 export interface Theme {
-  layout: {
-    bodyBg: string;
-    mailBg: string;
-    mailWidth: number;
-  };
+  layout: MailLayout;
   fonts: FontSetting[];
   colors: Color[];
 }

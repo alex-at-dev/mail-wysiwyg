@@ -2,12 +2,16 @@ import { HTMLProps } from 'react';
 import { useReorderList } from '../hooks/useReorderList';
 import { useThemeContext } from '../hooks/useThemeContext';
 import { ColorEditor } from './ColorEditor';
+import { ColorPicker } from './ColorPicker';
 import { FontSettingEditor } from './FontSettingEditor';
+import { InputLabel } from './InputLabel';
 import { PropertyButton } from './PropertyButton';
+import { Textbox } from './Textbox';
 
 export const ThemeEditor: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
   const {
     theme,
+    getColor,
     addColor,
     removeColor,
     updateColor,
@@ -16,6 +20,7 @@ export const ThemeEditor: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
     updateFont,
     reorderColors,
     reorderFonts,
+    updateLayout,
   } = useThemeContext();
   const { getHandlers: getReorderHandlersColor } = useReorderList(reorderColors);
   const { getHandlers: getReorderHandlersFonts } = useReorderList(reorderFonts);
@@ -49,6 +54,32 @@ export const ThemeEditor: React.FC<HTMLProps<HTMLDivElement>> = (props) => {
           getReorderHandlers={getReorderHandlersFonts}
         />
       ))}
+
+      <h3 className="uppercase-sub-title mt-5">Basic settings</h3>
+      <div>
+        <InputLabel className="mt-2 block">
+          Body background (background color around the email)
+        </InputLabel>
+        <ColorPicker
+          selectedColor={getColor(theme.layout.bodyBg)}
+          onSelectedColorChange={(color) => updateLayout({ bodyBg: color?.id })}
+        />
+        <InputLabel className="mt-2 block">
+          Mail background (background color inside the actual email)
+        </InputLabel>
+        <ColorPicker
+          selectedColor={getColor(theme.layout.mailBg)}
+          onSelectedColorChange={(color) => updateLayout({ mailBg: color?.id })}
+        />
+        <Textbox
+          className="mt-2"
+          type="number"
+          min="320"
+          label="Mail width (fixed width of the email content)"
+          defaultValue={theme.layout.mailWidth}
+          onBlur={(ev) => updateLayout({ mailWidth: parseInt(ev.target.value) })}
+        />
+      </div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { MouseEvent } from 'react';
 import { cx } from '../modules/util';
 import { Block } from '../types/Block';
+import { Uuid4 } from '../types/Uuid';
 import { useEditorContext } from './useEditorContext';
 import { useThemeContext } from './useThemeContext';
 
@@ -28,6 +29,11 @@ export const useBlockWysiwygProps = (block: Block) => {
       */
       ev.stopPropagation();
       if (selectedBlockId !== block.id) setHoveredBlockId(block.id);
+    },
+    onMouseLeave: (ev: MouseEvent) => {
+      setTimeout(() => {
+        setHoveredBlockId((id: Uuid4 | null) => (id === block.id ? null : id));
+      }, 100);
     },
   };
 };

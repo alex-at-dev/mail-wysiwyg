@@ -7,11 +7,13 @@ import { GeneralSettingsPanel } from '../components/GeneralSettingsPanel';
 import { ResizableContainer } from '../components/ResizableContainer';
 import { useEditorContext } from '../hooks/useEditorContext';
 import { useReorderList } from '../hooks/useReorderList';
+import { useThemeContext } from '../hooks/useThemeContext';
 import { EOL } from '../modules/tree';
 import { cx } from '../modules/util';
 
 export const MailEditPage: React.FC = () => {
   const { root, selectedBlockId, setSelectedBlockId, reorderBlocks } = useEditorContext();
+  const { theme, getColor } = useThemeContext();
   const { getHandlers } = useReorderList(reorderBlocks);
 
   const handleUnselectBlock = (ev: MouseEvent) => {
@@ -20,7 +22,7 @@ export const MailEditPage: React.FC = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex" style={{ background: getColor(theme.layout.bodyBg)?.hex }}>
       {/* blocks */}
       <ResizableContainer
         side="right"
@@ -41,7 +43,10 @@ export const MailEditPage: React.FC = () => {
         onClick={handleUnselectBlock}
         className="h-screen flex-1 overflow-y-auto overflow-x-hidden"
       >
-        <div className="mx-auto my-8 w-[800px] shadow-page" onClick={handleUnselectBlock}>
+        <div
+          className="mx-auto"
+          style={{ background: getColor(theme.layout.mailBg)?.hex, width: theme.layout.mailWidth }}
+        >
           {!root.children ? (
             <EmptyState className="px-6 py-6">
               You will see a preview of the generated mail here once you add your first block from
@@ -50,6 +55,7 @@ export const MailEditPage: React.FC = () => {
           ) : (
             <>
               <BlockWysiwyg block={root} />
+              <pre>{JSON.stringify(theme, null, 2)}</pre>
               <pre>{JSON.stringify(root, null, 2)}</pre>
             </>
           )}

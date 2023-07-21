@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, useState } from 'react';
+import { newUuid } from '../modules/util';
 import { Theme } from '../types/Theme';
 import { ThemeContextValue } from '../types/ThemeContextValue';
 
@@ -16,7 +17,7 @@ export const ThemeContext = React.createContext<ThemeContextValue>({
 const defaultTheme: Theme = {
   fonts: [
     {
-      id: crypto.randomUUID(),
+      id: newUuid(),
       name: 'base',
       weight: 400,
       family: 'sans-serif',
@@ -25,21 +26,21 @@ const defaultTheme: Theme = {
     },
   ],
   colors: [
-    { id: crypto.randomUUID(), name: 'white', hex: '#ffffff' },
-    { id: crypto.randomUUID(), name: 'neutral-50', hex: '#fafafa' },
-    { id: crypto.randomUUID(), name: 'neutral-100', hex: '#f5f5f5' },
-    { id: crypto.randomUUID(), name: 'neutral-200', hex: '#e5e5e5' },
-    { id: crypto.randomUUID(), name: 'neutral-300', hex: '#d4d4d4' },
-    { id: crypto.randomUUID(), name: 'neutral-400', hex: '#a3a3a3' },
-    { id: crypto.randomUUID(), name: 'neutral-500', hex: '#737373' },
-    { id: crypto.randomUUID(), name: 'neutral-600', hex: '#525252' },
-    { id: crypto.randomUUID(), name: 'neutral-700', hex: '#404040' },
-    { id: crypto.randomUUID(), name: 'neutral-800', hex: '#262626' },
-    { id: crypto.randomUUID(), name: 'neutral-900', hex: '#171717' },
+    { id: newUuid(), name: 'white', hex: '#ffffff' },
+    { id: newUuid(), name: 'neutral-50', hex: '#fafafa' },
+    { id: newUuid(), name: 'neutral-100', hex: '#f5f5f5' },
+    { id: newUuid(), name: 'neutral-200', hex: '#e5e5e5' },
+    { id: newUuid(), name: 'neutral-300', hex: '#d4d4d4' },
+    { id: newUuid(), name: 'neutral-400', hex: '#a3a3a3' },
+    { id: newUuid(), name: 'neutral-500', hex: '#737373' },
+    { id: newUuid(), name: 'neutral-600', hex: '#525252' },
+    { id: newUuid(), name: 'neutral-700', hex: '#404040' },
+    { id: newUuid(), name: 'neutral-800', hex: '#262626' },
+    { id: newUuid(), name: 'neutral-900', hex: '#171717' },
   ],
   layout: {
-    bodyBg: 'grey100',
-    mailBg: 'white',
+    bodyBg: null,
+    mailBg: null,
     mailWidth: 644,
   },
 };

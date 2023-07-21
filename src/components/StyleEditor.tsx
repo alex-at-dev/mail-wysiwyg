@@ -20,14 +20,17 @@ export const StyleEditor: React.FC<StyleEditorProps> = ({ hiddenEditors, ...prop
     updateBlock({ ...selectedEntry.node, style: { ...selectedEntry.node.style, font: font.id } });
   };
 
-  const handleColorSelect = (color: Color) => {
-    updateBlock({ ...selectedEntry.node, style: { ...selectedEntry.node.style, color: color.id } });
-  };
-
-  const handleBgSelect = (color: Color) => {
+  const handleColorSelect = (color: Color | null) => {
     updateBlock({
       ...selectedEntry.node,
-      style: { ...selectedEntry.node.style, background: color.id },
+      style: { ...selectedEntry.node.style, color: color?.id },
+    });
+  };
+
+  const handleBgSelect = (color: Color | null) => {
+    updateBlock({
+      ...selectedEntry.node,
+      style: { ...selectedEntry.node.style, background: color?.id },
     });
   };
 

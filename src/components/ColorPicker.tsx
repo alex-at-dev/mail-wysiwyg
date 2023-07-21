@@ -6,12 +6,12 @@ import { PropertyButton } from './PropertyButton';
 
 interface ColorPickerProps {
   selectedColor?: Color;
-  onSelectedColorChange?: (color: Color) => void;
+  onSelectedColorChange?: (color: Color | null) => void;
 }
 
 const defaultColor: Color = {
   id: '0000-0000-0000-0000-0000',
-  name: '<Select a color>',
+  name: '<none>',
   hex: 'transparent',
 };
 
@@ -36,7 +36,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   const [open, setOpen] = useState(false);
   const { theme } = useThemeContext();
 
-  const handleColorSelect = (color: Color) => {
+  const handleColorSelect = (color: Color | null) => {
     if (onSelectedColorChange) onSelectedColorChange(color);
     setOpen(false);
   };
@@ -52,6 +52,9 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
           { invisible: !open }
         )}
       >
+        <PropertyButton onClick={() => handleColorSelect(null)}>
+          <ColorLabel color={defaultColor} />
+        </PropertyButton>
         {theme.colors.map((c) => (
           <PropertyButton key={c.id} onClick={() => handleColorSelect(c)}>
             <ColorLabel color={c} />
