@@ -1,5 +1,6 @@
 import { MutableRefObject, useRef, useState } from 'react';
 import { TNode, Tree } from '../modules/tree';
+import { Uuid4 } from '../types/Uuid';
 
 export function useTree<T extends TNode>(name: string) {
   const tree = useRef<Tree<T>>(null) as MutableRefObject<Tree<T>>;
@@ -31,7 +32,7 @@ export function useTree<T extends TNode>(name: string) {
     Object.assign(entry.node, updatedNode);
   };
 
-  const byId = (id: string | null) => {
+  const byId = (id: Uuid4 | null) => {
     if (id === null) return null;
     return tree.current.byId[id] || null;
   };

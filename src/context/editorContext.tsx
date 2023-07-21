@@ -23,9 +23,36 @@ export const EditorContextProvider = <T extends unknown>({ children }: PropsWith
     tree.updateNode(updatedBlock);
   };
 
-  const updateSelectedBlockId = (id: Uuid4) => {
+  const updateSelectedBlockId = (id: Uuid4 | null) => {
     setSelectedBlockId(id);
     setSelectedEntry(tree.byId(id));
+  };
+
+  const addBlock = (node: Block<T>, parentId: Uuid4, index?: number | undefined) => {
+    tree.addNode(node, parentId, index);
+    updateSelectedBlockId(node.id);
+  };
+
+  const removeBlock = (id: Uuid4 | null, parentRemoved?: boolean, transient?: boolean) => {
+    if (!id) return;
+    if (id === selectedBlockId) {
+      const parent = tree.getParentThat(
+        (n) => n.type === 'row' || n.type === 'root',
+        selectedBlockId
+      );
+      const children = parent?.children;
+      if (children && children.length > 1) {
+        let index = children.findIndex((b) => b.id === selectedBlockId);
+        if (index === children.length - 1) index--;
+        else index++;
+        updateSelectedBlockId(children[index].id);
+      } else if (parent) {
+        updateSelectedBlockId(parent.id);
+      } else {
+        updateSelectedBlockId(null);
+      }
+    }
+    tree.removeNode(id, parentRemoved, transient);
   };
 
   const contextValue = {
@@ -39,8 +66,8 @@ export const EditorContextProvider = <T extends unknown>({ children }: PropsWith
     byId: tree.byId,
     getParentThat: tree.getParentThat,
     createBlock: tree.createNode,
-    addBlock: tree.addNode,
-    removeBlock: tree.removeNode,
+    addBlock,
+    removeBlock,
     updateBlock,
     reorderBlocks: tree.reorderChildren,
   };

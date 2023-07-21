@@ -15,7 +15,7 @@ export interface EditorContextValue<T> {
   root: Block<T>;
   byId: (id: Uuid4 | null) => TreeEntry<Block<T>> | null;
   getParentThat: (predicate: (node: Block<T>) => boolean, initialId: Uuid4) => Block<T> | null;
-  addBlock: (node: Block<T>, parentId: string) => void;
+  addBlock: (node: Block<T>, parentId: string, index?: number) => void;
   createBlock: (data: Omit<Block<T>, 'id'>) => Block<T>;
   updateBlock: (updatedBlock: Block<T>) => void;
   removeBlock: (id: Uuid4 | null) => void;

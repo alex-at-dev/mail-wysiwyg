@@ -1,5 +1,6 @@
 import { ReorderType } from '../types/ReorderType';
 import { Uuid4 } from '../types/Uuid';
+import { Uuid4OrEol } from '../types/Uuid4OrEol';
 import { newUuid } from './util';
 
 // TODO Unit-tests
@@ -18,12 +19,12 @@ export interface TNode {
 
 export interface TreeEntry<T extends TNode> {
   node: T;
-  parent: string | null;
+  parent: Uuid4 | null;
 }
 
 export class Tree<T extends TNode> {
   root: T;
-  byId: { [id: string]: TreeEntry<T> };
+  byId: { [id in Uuid4OrEol]?: TreeEntry<T> };
 
   constructor(rootData?: any) {
     let rootData_safe = rootData ?? {};
@@ -38,8 +39,8 @@ export class Tree<T extends TNode> {
    * @param initialId node.id to start from.
    * @returns closest parent of {@link initialId} that matches {@link predicate} or null.
    */
-  getParentThat(predicate: (node: T) => boolean, initialId: string): T | null {
-    let id: string | null = initialId;
+  getParentThat(predicate: (node: T) => boolean, initialId: Uuid4): T | null {
+    let id: Uuid4 | null = initialId;
     while (id) {
       const entry = this.getEntry(id);
       if (!entry) return null;
@@ -66,7 +67,7 @@ export class Tree<T extends TNode> {
    * @param parent parent to add to.
    * @param index optional add-index. By default this is children.length.
    */
-  addNode(node: T, parentId: string, index?: number) {
+  addNode(node: T, parentId: Uuid4OrEol, index?: number) {
     // get real parent, as the given parent could be a copy
     const parentEntry = this.getEntry(parentId)?.node;
     if (!parentEntry || this.getEntry(node.id)) return;
@@ -82,7 +83,7 @@ export class Tree<T extends TNode> {
    * @param parentRemoved If true, doesn't remove node from its parents children array.
    * @param transient If true doesn't remove children. Used for reordering.
    */
-  removeNode(id: string | null, parentRemoved = false, transient = false) {
+  removeNode(id: Uuid4 | null, parentRemoved = false, transient = false) {
     if (!id) return;
     const entry = this.getEntry(id);
     if (!entry || !entry.node) return;
@@ -108,7 +109,7 @@ export class Tree<T extends TNode> {
    * @param targetId target node id
    * @param type type of reorder. One of before, after, inside (see exact strings in type-definition)
    */
-  reorderChildren(srcId: string, targetId: string, type: ReorderType) {
+  reorderChildren(srcId: Uuid4, targetId: Uuid4OrEol, type: ReorderType) {
     const srcEntry = this.getEntry(srcId);
     if (!srcEntry?.node) return;
     let targetEntry = this.getEntry(targetId);
@@ -162,7 +163,7 @@ export class Tree<T extends TNode> {
   }
 
   private updateById() {
-    const updateLayer = (node: T, parentId: string | null) => {
+    const updateLayer = (node: T, parentId: Uuid4 | null) => {
       this.byId[node.id] = { node, parent: parentId };
       if (node.children?.length) node.children.forEach((c) => updateLayer(c as T, node.id));
     };
@@ -176,7 +177,7 @@ export class Tree<T extends TNode> {
    * @param id entry id.
    * @returns entry or null if entry / entry.node doesn't exist.
    */
-  private getEntry(id: string) {
+  private getEntry(id: Uuid4OrEol) {
     const _entry = this.byId[id];
     if (!_entry || !_entry.node) return null;
     return _entry;

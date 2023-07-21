@@ -11,5 +11,5 @@ export const HeadlineWysiwyg: React.FC<HeadlineWysiwygProps> = ({ block }) => {
   const blockProps = useBlockWysiwygProps(block);
   if (!block.data) return null;
   const tagname = 'h' + block.data.level;
-  return React.createElement(tagname, blockProps, block.content);
+  return React.createElement(tagname, blockProps, block.content || '<Empty headline>');
 };

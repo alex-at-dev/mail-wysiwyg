@@ -1,6 +1,7 @@
 import { FocusEvent } from 'react';
 import { useEditorContext } from '../../hooks/useEditorContext';
 import { BlockDataHeadline } from '../../types/BlockDataHeadline';
+import { AddBlockList } from '../AddBlockList';
 import { SegmentedButtonRadio } from '../SegmentedButtonRadio';
 import { StyleEditor } from '../StyleEditor';
 import { Textarea } from '../Textarea';
@@ -42,6 +43,7 @@ export const BlockEditorHeadline: React.FC = () => {
       />
 
       <StyleEditor className="mt-6" />
+      <AddBlockList className="-mx-4 mt-4" />
     </div>
   );
 };

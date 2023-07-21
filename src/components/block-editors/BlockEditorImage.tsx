@@ -1,6 +1,8 @@
 import { FocusEvent } from 'react';
 import { useEditorContext } from '../../hooks/useEditorContext';
 import { BlockDataImage } from '../../types/BlockDataImage';
+import { AddBlockList } from '../AddBlockList';
+import { StyleEditor } from '../StyleEditor';
 import { Textbox } from '../Textbox';
 
 export const BlockEditorImage: React.FC = () => {
@@ -29,6 +31,9 @@ export const BlockEditorImage: React.FC = () => {
         defaultValue={selectedBlock.node.content}
         onBlur={handleAltBlur}
       />
+
+      <StyleEditor className="mt-6" hiddenEditors={['background', 'color', 'font', 'padding']} />
+      <AddBlockList className="-mx-4 mt-4" />
     </div>
   );
 };

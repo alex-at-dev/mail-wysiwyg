@@ -20,11 +20,11 @@ export const BlockWysiwyg: React.FC<BlockWysiwygProps> = ({ block }) => {
     case 'root':
       if (!block.children) return null;
       return (
-        <>
+        <div style={{ all: 'initial' }}>
           {block.children.map((c) => (
             <BlockWysiwyg key={c.id} block={c} />
           ))}
-        </>
+        </div>
       );
     case 'row':
       return <RowWysiwyg block={block as Block<BlockDataRow>} />;

@@ -26,7 +26,7 @@ export const MailEditPage: React.FC = () => {
       {/* blocks */}
       <ResizableContainer
         side="right"
-        className="flex h-screen w-80 min-w-[8rem] max-w-md flex-none flex-col overflow-y-auto overflow-x-hidden border-r bg-white"
+        className="flex h-screen w-80 min-w-[8rem] max-w-lg flex-none flex-col overflow-y-auto overflow-x-hidden border-r bg-white"
         onClick={handleUnselectBlock}
       >
         <h2 className="uppercase-list-title mx-4 mb-3 mt-4">Blocks</h2>
@@ -45,7 +45,10 @@ export const MailEditPage: React.FC = () => {
       >
         <div
           className="mx-auto"
-          style={{ background: getColor(theme.layout.mailBg)?.hex, width: theme.layout.mailWidth }}
+          style={{
+            background: getColor(theme.layout.mailBg)?.hex,
+            width: theme.layout.mailWidth,
+          }}
         >
           {!root.children ? (
             <EmptyState className="px-6 py-6">

@@ -1,6 +1,8 @@
 import { FocusEvent } from 'react';
 import { useEditorContext } from '../../hooks/useEditorContext';
 import { BlockDataCta } from '../../types/BlockDataCta';
+import { AddBlockList } from '../AddBlockList';
+import { StyleEditor } from '../StyleEditor';
 import { Textbox } from '../Textbox';
 
 export const BlockEditorCta: React.FC = () => {
@@ -29,6 +31,9 @@ export const BlockEditorCta: React.FC = () => {
         defaultValue={selectedBlock.node.data?.href}
         onBlur={handleHrefBlur}
       />
+
+      <StyleEditor className="mt-6" />
+      <AddBlockList className="-mx-4 mt-4" />
     </div>
   );
 };

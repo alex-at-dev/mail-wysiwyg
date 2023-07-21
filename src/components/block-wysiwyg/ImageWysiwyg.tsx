@@ -8,6 +8,5 @@ interface ImageWysiwygProps {
 
 export const ImageWysiwyg: React.FC<ImageWysiwygProps> = ({ block }) => {
   const blockProps = useBlockWysiwygProps(block);
-  if (!block.data) return null;
-  return <img {...blockProps} src={block.data.src} alt={block.content} />;
+  return <img {...blockProps} src={block.data?.src} alt={block.content || '<Empty image>'} />;
 };

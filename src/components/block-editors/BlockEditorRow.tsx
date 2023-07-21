@@ -29,9 +29,7 @@ export const BlockEditorRow: React.FC = () => {
       />
 
       <StyleEditor hiddenEditors={['color', 'font']} className="mt-6" />
-
-      <h2 className="uppercase-list-title mb-3 mt-6">Add Block</h2>
-      <AddBlockList className="-mx-4 -mt-2" />
+      <AddBlockList className="-mx-4 mt-4" />
     </div>
   );
 };

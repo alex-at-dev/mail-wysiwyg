@@ -1,5 +1,7 @@
 import { FocusEvent } from 'react';
 import { useEditorContext } from '../../hooks/useEditorContext';
+import { AddBlockList } from '../AddBlockList';
+import { StyleEditor } from '../StyleEditor';
 import { Textarea } from '../Textarea';
 
 export const BlockEditorParagraph: React.FC = () => {
@@ -12,12 +14,16 @@ export const BlockEditorParagraph: React.FC = () => {
   };
 
   return (
-    <Textarea
-      key={selectedBlockId}
-      rows={6}
-      label="content (supports markdown)"
-      defaultValue={selectedBlock.node.content}
-      onBlur={handleContentBlur}
-    />
+    <div>
+      <Textarea
+        key={selectedBlockId}
+        rows={6}
+        label="content (supports markdown)"
+        defaultValue={selectedBlock.node.content}
+        onBlur={handleContentBlur}
+      />
+      <StyleEditor className="mt-6" />
+      <AddBlockList className="-mx-4 mt-4" />
+    </div>
   );
 };

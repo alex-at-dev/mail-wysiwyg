@@ -7,7 +7,6 @@ interface ParagraphWysiwygProps {
 }
 export const ParagraphWysiwyg: React.FC<ParagraphWysiwygProps> = ({ block }) => {
   const blockProps = useBlockWysiwygProps(block);
-  if (!block.content) return null;
 
-  return <Markdown {...blockProps}>{block.content}</Markdown>;
+  return <Markdown {...blockProps}>{block.content || '&lt;Empty paragraph&gt;'}</Markdown>;
 };
