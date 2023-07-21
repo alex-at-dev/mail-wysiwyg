@@ -1,6 +1,7 @@
 import { ChangeEvent, FocusEvent, useState } from 'react';
 import { Color } from '../types/Color';
 import { ReorderHandlers } from '../types/ReorderHandlers';
+import { Uuid4 } from '../types/Uuid';
 import { ColorInput } from './ColorInput';
 import { PropertyButton } from './PropertyButton';
 import { PropertyInput } from './PropertyInput';
@@ -10,7 +11,7 @@ interface ColorEditorProps {
   color: Color;
   onColorChange: (color: Color) => void;
   onColorRemove: (color: Color) => void;
-  getReorderHandlers: (id: string) => ReorderHandlers;
+  getReorderHandlers: (id: Uuid4) => ReorderHandlers;
 }
 
 export const ColorEditor: React.FC<ColorEditorProps> = ({

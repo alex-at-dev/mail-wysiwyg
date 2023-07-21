@@ -1,6 +1,7 @@
 import { FocusEvent } from 'react';
 import { FontSetting } from '../types/FontSetting';
 import { ReorderHandlers } from '../types/ReorderHandlers';
+import { Uuid4 } from '../types/Uuid';
 import { PropertyButton } from './PropertyButton';
 import { PropertyInput } from './PropertyInput';
 import { ReorderButton } from './ReorderButton';
@@ -9,7 +10,7 @@ interface FontSettingEditorProps {
   font: FontSetting;
   onFontChange: (font: FontSetting) => void;
   onFontRemove: (font: FontSetting) => void;
-  getReorderHandlers: (id: string) => ReorderHandlers;
+  getReorderHandlers: (id: Uuid4) => ReorderHandlers;
 }
 
 export const FontSettingEditor: React.FC<FontSettingEditorProps> = ({

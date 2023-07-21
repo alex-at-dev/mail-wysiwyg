@@ -2,6 +2,7 @@ import { TreeEntry } from '../modules/tree';
 import { Block } from './Block';
 import { ReorderType } from './ReorderType';
 import { Uuid4 } from './Uuid';
+import { Uuid4OrEol } from './Uuid4OrEol';
 
 export interface EditorContextValue<T> {
   selectedBlockId: Uuid4 | null;
@@ -18,5 +19,5 @@ export interface EditorContextValue<T> {
   createBlock: (data: Omit<Block<T>, 'id'>) => Block<T>;
   updateBlock: (updatedBlock: Block<T>) => void;
   removeBlock: (id: Uuid4 | null) => void;
-  reorderBlocks: (srcId: Uuid4, targetId: Uuid4 | 'eol', type: ReorderType) => void;
+  reorderBlocks: (srcId: Uuid4, targetId: Uuid4OrEol, type: ReorderType) => void;
 }

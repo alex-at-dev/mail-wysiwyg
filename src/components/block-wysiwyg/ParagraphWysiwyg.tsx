@@ -9,9 +9,5 @@ export const ParagraphWysiwyg: React.FC<ParagraphWysiwygProps> = ({ block }) => 
   const blockProps = useBlockWysiwygProps(block);
   if (!block.content) return null;
 
-  return (
-    <p {...blockProps}>
-      <Markdown>{block.content}</Markdown>
-    </p>
-  );
+  return <Markdown {...blockProps}>{block.content}</Markdown>;
 };

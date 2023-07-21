@@ -3,6 +3,7 @@ import { DragConfig } from '../types/DragConfig';
 import { ReorderHandlers } from '../types/ReorderHandlers';
 import { ReorderType } from '../types/ReorderType';
 import { Uuid4 } from '../types/Uuid';
+import { Uuid4OrEol } from '../types/Uuid4OrEol';
 
 // TODO cleanup this files head section
 
@@ -15,7 +16,6 @@ document.body.appendChild(dragImage);
 
 type DragEv = DragEvent<HTMLElement>;
 type DragHandler = (ev: DragEv, id: Uuid4OrEol) => void;
-type Uuid4OrEol = Uuid4 | 'eol';
 
 const defaultConfig = {
   isContainer: false,

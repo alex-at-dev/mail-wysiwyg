@@ -5,6 +5,7 @@ import { Color } from '../types/Color';
 import { FontSetting } from '../types/FontSetting';
 import { ReorderType } from '../types/ReorderType';
 import { Uuid4 } from '../types/Uuid';
+import { Uuid4OrEol } from '../types/Uuid4OrEol';
 import { WithId } from '../types/WithId';
 
 type ThemeField = 'colors' | 'fonts';
@@ -43,8 +44,8 @@ export const useThemeContext = () => {
 
   const reorderFieldItems = (
     field: ThemeField,
-    srcId: string,
-    targetId: string,
+    srcId: Uuid4,
+    targetId: Uuid4OrEol,
     type: ReorderType
   ) => {
     const collection = theme[field] as WithId[];
@@ -68,7 +69,7 @@ export const useThemeContext = () => {
   };
   const removeColor = (color: Color) => removeFieldItem<Color>('colors', color);
   const updateColor = (color: Color) => updateFieldItem<Color>('colors', color);
-  const reorderColors = (srcId: string, targetId: string, type: ReorderType) =>
+  const reorderColors = (srcId: Uuid4, targetId: Uuid4OrEol, type: ReorderType) =>
     reorderFieldItems('colors', srcId, targetId, type);
   const getColor = (id: Uuid4) => theme.colors.find((c) => c.id === id);
   const getColorStyle = (colorId: Uuid4, property: 'color' | 'background' = 'color') => {
@@ -90,7 +91,7 @@ export const useThemeContext = () => {
   };
   const removeFont = (font: FontSetting) => removeFieldItem<FontSetting>('fonts', font);
   const updateFont = (font: FontSetting) => updateFieldItem<FontSetting>('fonts', font);
-  const reorderFonts = (srcId: string, targetId: string, type: ReorderType) =>
+  const reorderFonts = (srcId: Uuid4, targetId: Uuid4OrEol, type: ReorderType) =>
     reorderFieldItems('fonts', srcId, targetId, type);
   const getFont = (id: Uuid4) => theme.fonts.find((f) => f.id === id);
   const getFontStyle = (fontId: Uuid4) => {
