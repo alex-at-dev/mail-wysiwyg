@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
+import { BlockWysiwyg } from '../components/block-wysiwyg/BlockWysiwyg';
 import { BlockList } from '../components/BlockList';
 import { BlockSettingsPanel } from '../components/BlockSettingsPanel';
-import { BlockWysiwyg } from '../components/BlockWysiwyg';
 import { EmptyState } from '../components/EmptyState';
 import { GeneralSettingsPanel } from '../components/GeneralSettingsPanel';
 import { ResizableContainer } from '../components/ResizableContainer';
